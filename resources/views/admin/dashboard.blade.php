@@ -9,7 +9,7 @@
 
 @section('content')
 
-<h2>Employees</h2>
+<h2>MPR Status</h2>
 
 <table class="table table-hover">
 
@@ -17,8 +17,8 @@
       <tr>
         <th>Employee Name</th>
         <th>Designation</th>
-        <th>Email</th>
-        <th>Action</th>
+        <th>Status</th>
+       
       </tr>
     </thead>
 
@@ -26,10 +26,10 @@
 
      	@foreach ($users as $user)
       <tr>
-        <td>{{ $user->name }} </td>
+        <td><a href="{{ action('AdminController@show', [$user->id]) }}"> {{ $user->name }} </a></td>
         <td>{{ $user->designation }}</td>
-        <td>{{ $user->email }}</td>
-         <td><a href="{{ action('AdminController@edit', [$user->id]) }}"> Edit </a> </td>
+        <td>Not Submitted <span>&#10006;</span></td>
+        
       </tr>
 
       @endforeach
@@ -40,6 +40,6 @@
 </table>
 
 
-<a href="{{ action('AdminController@create') }}" class="btn btn-info" role="button"> Create User</a>
+
 
 @endsection

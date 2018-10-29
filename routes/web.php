@@ -25,7 +25,13 @@ Route::get('/', function () {
 
 // Route::post('admin', 'AdminController@store' );
 
+
+Route::get('/admin/dashboard', 'AdminController@getDashboard');
+
+
 Route::resource('admin', 'AdminController');
+
+
 
 
 
