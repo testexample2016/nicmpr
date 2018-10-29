@@ -23,6 +23,5 @@
 
 {!!Form::close() !!}
 
- @include('errors.error')
 
 @endsection

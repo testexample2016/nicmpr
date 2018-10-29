@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\User;
 
-use App\Http\Requests\UserRequest;
+use App\Http\Requests\UserCreateRequest;
+
+use App\Http\Requests\UserUpdateRequest;
 
 
 
@@ -37,7 +39,7 @@ class AdminController extends Controller
     }
 
 
-    public function store(UserRequest $request){
+    public function store(UserCreateRequest $request){
 
 
     	 User::create($request->all());
@@ -56,7 +58,7 @@ class AdminController extends Controller
     }
 
 
-    public function update($id, UserRequest $request){
+    public function update($id, UserUpdateRequest $request){
 
     	$user = User::findOrFail($id);
 
