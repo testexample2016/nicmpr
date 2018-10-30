@@ -6,7 +6,9 @@ use App\User;
 
 use App\Project;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\ProjectRequest;
+
+// use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
@@ -34,11 +36,7 @@ class ProjectController extends Controller
     {
 
        
-       $users = User::pluck('name', 'id')->toArray(); //As this is a collection so convert it to array
-
-       $users[0] = 'Not Assisgned';
-
-       ksort($users);
+        $users = $this->formatUsers();
 
         return view('project.create', compact('users'));
 
@@ -52,32 +50,17 @@ class ProjectController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProjectRequest $request)
     {
-
     
       // dd($request->input('projectname'));
 
        $project = new Project();
 
-       if($request->input('user')!=0)
-       {
-
-       $project->user_id = $request->input('user'); //not able to mass assign as parameter name is user not user_id
-
-       }
-
-       else {
-        $project->user_id = null;
-       }
-
-        $project->projectname = $request->input('projectname'); 
+       $this->projectValueSet($request, $project);
 
 
-        $project->save();
-
-
-          return redirect('project');
+      return redirect('project');
     }
 
     /**
@@ -99,7 +82,11 @@ class ProjectController extends Controller
      */
     public function edit($id)
     {
-        //
+        $project = Project::findOrFail($id);
+
+        $users = $this->formatUsers();
+
+        return view('project.edit', compact('project', 'users'));
     }
 
     /**
@@ -109,9 +96,13 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ProjectRequest $request, $id)
     {
-        //
+        $project = Project::findOrFail($id);
+
+         $this->projectValueSet($request, $project);
+
+        return redirect('project');
     }
 
     /**
@@ -123,5 +114,50 @@ class ProjectController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+     /**
+     * Show the form for creating a new resource.
+     *
+     * @return $users
+     */
+
+    private function formatUsers() {
+
+        $users = User::pluck('name', 'id')->toArray(); //As this is a collection so convert it to array
+
+       $users[0] = 'Not Assisgned';
+
+       ksort($users);
+
+       return $users;
+
+    }
+
+
+    private function projectValueSet(ProjectRequest $request, Project $project){
+
+
+        if($request->input('user')!=0)
+       {
+
+       $project->user_id = $request->input('user'); //not able to mass assign as parameter name is user not user_id
+
+       }
+
+       else {
+        $project->user_id = null;
+       }
+
+        $project->projectname = $request->input('projectname'); 
+
+
+        $project->save();
+
+
+        return $project;
+
+
     }
 }

@@ -10,7 +10,7 @@
 
 @section('content')
 
-
+@include('errors.error')
 
 <h1>Create Project</h1>
 
