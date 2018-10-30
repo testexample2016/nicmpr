@@ -11,7 +11,7 @@
     </div>
 
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">Project</a>
+      <a class="navbar-brand" href="{{ action('ProjectController@index') }}">Project</a>
     </div>
     
   </div>

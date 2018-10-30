@@ -31,6 +31,8 @@ Route::get('/admin/dashboard', 'AdminController@getDashboard');
 
 Route::resource('admin', 'AdminController');
 
+Route::resource('project', 'ProjectController');
+
 
 
 
