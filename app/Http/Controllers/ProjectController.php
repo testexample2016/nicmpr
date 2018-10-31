@@ -125,11 +125,13 @@ class ProjectController extends Controller
 
     private function formatUsers() {
 
-        $users = User::pluck('name', 'id')->toArray(); //As this is a collection so convert it to array
+        $users = User::pluck('name', 'id'); //As this is a collection so convert it to array
 
-       $users[0] = 'Not Assisgned';
+       // $users[0] = 'Not Assisgned';
 
-       ksort($users);
+       $users->prepend('Not Assisgned', 0);
+
+       // ksort($users);
 
        return $users;
 
@@ -151,6 +153,9 @@ class ProjectController extends Controller
        }
 
         $project->projectname = $request->input('projectname'); 
+
+
+        $project->noOfParam = $request->input('noOfParam');
 
 
         $project->save();

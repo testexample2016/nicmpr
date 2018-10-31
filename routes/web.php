@@ -33,6 +33,8 @@ Route::resource('admin', 'AdminController');
 
 Route::resource('project', 'ProjectController');
 
+Route::resource('param', 'ParamController');
+
 
 
 

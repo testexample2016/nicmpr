@@ -8,13 +8,20 @@ class project extends Model
 {
     protected $fillable = [
 
-    	'userid',
+    	'user_id',
     	'projectname',
+    	'noOfParam'
     	
     ];
 
     public function user()
     {
         return $this->belongsTo('App\User');
+    }
+
+
+    public function parameters()
+    {
+        return $this->hasMany('App\Parameter');
     }
 }

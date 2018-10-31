@@ -4,6 +4,11 @@
 </div>
 
 <div class="form-group">
+	{!! Form::label('noOfParam', 'No of Parameter:') !!}
+	{!! Form::text('noOfParam', null, ['class' => 'form-control', 'required']) !!}
+</div>
+
+<div class="form-group">
     {!! Form::Label('user', 'User:') !!}
     {!! Form::select('user', $users , null, ['class' => 'form-control']) !!}
 </div>

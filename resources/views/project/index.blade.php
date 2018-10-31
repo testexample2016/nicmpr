@@ -46,7 +46,16 @@
 
 </table>
 
+<p>
 
-<a href="{{ action('ProjectController@create') }}" class="btn btn-info" role="button"> Create Project</a>
+<a href="{{ action('ProjectController@create') }}" class="btn btn-info" role="button"> Create Project</a> 
+
+</p>
+
+<p>
+
+<a href="{{ action('ParamController@create') }}" class="btn btn-info" role="button"> Create Project Parameter</a>
+
+</p>
 
 @endsection

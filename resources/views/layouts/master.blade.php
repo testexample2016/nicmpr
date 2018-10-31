@@ -11,7 +11,7 @@
 
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-     <link rel="stylesheet" href="{{URL::to('src/css/main.css') }}">
+     <!-- <link rel="stylesheet" href="{{URL::to('src/css/main.css') }}"> -->
 
      <style>
      
@@ -34,4 +34,7 @@
 
        </div>
     </body>
+
+ @yield('script')
+
 </html>

@@ -27,6 +27,8 @@ class ProjectRequest extends FormRequest
             
             'projectname' => 'required|max:120|min:3',
 
+            'noOfParam' => 'required|numeric|between:1,10',
+
             'user' => 'required|numeric'
 
         ];
