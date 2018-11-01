@@ -25,7 +25,27 @@ Route::get('/', function () {
 
 // Route::post('admin', 'AdminController@store' );
 
+
+Route::get('/admin/dashboard', 'AdminController@getDashboard');
+
+
 Route::resource('admin', 'AdminController');
+
+Route::resource('project', 'ProjectController');
+
+
+// Route::get('ajax',function(){
+//    return view('param.message');
+// });
+
+// Route::post('getmsg','ParamController@ajaxtest');
+
+
+Route::resource('param', 'ParamController');
+
+
+
+
 
 
 

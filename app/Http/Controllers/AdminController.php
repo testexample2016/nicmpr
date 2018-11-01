@@ -12,6 +12,16 @@ use App\Http\Requests\UserUpdateRequest;
 
 class AdminController extends Controller
 {
+    
+    public function getDashboard()
+    {
+
+        $users = User::all();
+
+        return view('admin.dashboard', compact('users'));
+    }
+
+
     public function index(){
 
     	

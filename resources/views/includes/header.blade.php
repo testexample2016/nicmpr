@@ -3,7 +3,15 @@
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">WebSiteName</a>
+      <a class="navbar-brand" href="{{ action('AdminController@getDashboard') }}">Admin Dashboard</a>
+    </div>
+
+    <div class="navbar-header">
+      <a class="navbar-brand" href="{{ action('AdminController@index') }}">User</a>
+    </div>
+
+    <div class="navbar-header">
+      <a class="navbar-brand" href="{{ action('ProjectController@index') }}">Project</a>
     </div>
     
   </div>
