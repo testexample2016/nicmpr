@@ -77,28 +77,33 @@
 
 <tr class="table-info mprtable">
 
-  <td class="mprtable" rowspan="{{ $project->noOfParam }}">{{  $project->projectname }}</td>
+  <td class="mprtable" >{{  $project->projectname }}</td>
 
   <td class="mprtable">
     
-
+<ul>
 
 @foreach($project->parameters as $parameter)
 
-
-<td>
+<li>
 
 {{$parameter->parametername}}
 
-</td>
+</li>
+
+@endforeach
+
+</ul>
+
+
+  </td>
+
 </tr>
 
 
 @endforeach
 
 
-
-@endforeach
 
 </tbody>
 </table>
