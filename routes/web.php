@@ -43,6 +43,8 @@ Route::resource('project', 'ProjectController');
 
 Route::resource('param', 'ParamController');
 
+Route::resource('employee', 'EmployeeController');
+
 
 
 
