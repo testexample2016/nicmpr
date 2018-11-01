@@ -31,6 +31,8 @@
 
 @endif
 
-hello
+<h1>Welcome to NIC MPR </h1>
+
+<h4>Please Create <span style="color:blue;font-weight:bold">User</span> or <span style="color:blue;font-weight:bold">Project</span> or Go to <span style="color:blue;font-weight:bold">Admin dashboard</span></h4>
 
 @endsection
