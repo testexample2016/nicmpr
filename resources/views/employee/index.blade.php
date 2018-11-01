@@ -66,6 +66,7 @@
         <th>Previous Month</th>
         <th>Reporting Month</th>
         <th>Actions</th>
+        <th>Projects</th>
       </tr>
     </thead>
 
@@ -95,6 +96,11 @@
 
 </ul>
 
+
+  </td>
+
+  <td>
+    
 
   </td>
 
