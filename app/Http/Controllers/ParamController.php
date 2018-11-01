@@ -51,21 +51,12 @@ class ParamController extends Controller
      */
     public function store(Request $request)
     {
-         // dd($request->parameters[0]);
+         
+         $this->paramValueSet($request->parameters, $request->project);
 
-        
+         $project = Project::findOrFail($request->project);
 
-        for($i=0;$i<count($request->parameters);$i++)
-
-        {
-           $param = new Parameter();
-
-           $param->project_id =  $request->project;
-
-           $param->parametername =  $request->parameters[$i];
-
-           $param->save();
-        }
+           return view('project.show', compact('project'));
     }
 
     /**
@@ -87,8 +78,12 @@ class ParamController extends Controller
      */
     public function edit($id)
     {
-        //
+        $project = Project::findOrFail($id);
+
+        return view('param.edit', compact('project'));
     }
+
+
 
     /**
      * Update the specified resource in storage.
@@ -99,7 +94,22 @@ class ParamController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        for($i=0;$i<count($request->parameters);$i++)
+
+        {
+          $deletedRows = Parameter::where('project_id', $id)->delete();
+  
+        }
+
+
+        $this->paramValueSet($request->parameters, $id);
+
+        $project = Project::findOrFail($id);
+
+        return view('project.show', compact('project'));
+
+
     }
 
     /**
@@ -111,5 +121,33 @@ class ParamController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    // public function ajaxtest(){
+
+    //      $msg = "This is a simple message.";
+    //   return response()->json(array('msg'=> $msg), 200);
+    // }
+
+
+    private function paramValueSet($parameters, $id){
+
+         for($i=0;$i<count($parameters);$i++)
+
+        {
+           $param = new Parameter();
+
+           $param->project_id =  $id; 
+
+           $param->parametername =  $parameters[$i];
+
+           $param->save();
+
+          
+        }
+
+        return;
+
     }
 }

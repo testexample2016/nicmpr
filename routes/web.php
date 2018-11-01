@@ -33,7 +33,17 @@ Route::resource('admin', 'AdminController');
 
 Route::resource('project', 'ProjectController');
 
+
+// Route::get('ajax',function(){
+//    return view('param.message');
+// });
+
+// Route::post('getmsg','ParamController@ajaxtest');
+
+
 Route::resource('param', 'ParamController');
+
+
 
 
 
