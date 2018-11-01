@@ -17,7 +17,7 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        dd(Carbon::now());
+        // dd(Carbon::now()->format('F'));
 
         $employee_id = 1; //Hardcoded Employee for the time being
 

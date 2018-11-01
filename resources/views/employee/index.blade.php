@@ -47,15 +47,74 @@
 
 <td>Current Year:</td>
 
-<td> <?php echo date('Y'); ?> </td>
+<td> {{ Carbon\Carbon::now()->format('Y') }} </td>
 
 
 <td>Current Month</td>
 
-<td> <?php echo date('F'); ?> </td>
+<td>  {{ Carbon\Carbon::now()->format('F') }} </td>
 </tr>
 
 </tbody>
 </table>
+
+<table class="table table-bordered table-hover mprtable" >
+    <thead class="mprtable">
+      <tr >
+        <th>Projects</th>
+        <th>Parameters</th>
+        <th>Previous Month</th>
+        <th>Reporting Month</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+  <tbody class="mprtable">
+
+      
+      
+ @foreach($employee->projects as $project)
+
+<tr class="table-info mprtable">
+
+  <td class="mprtable" rowspan="{{ $project->noOfParam }}">{{  $project->projectname }}</td>
+
+  <td class="mprtable">
+    
+
+
+@foreach($project->parameters as $parameter)
+
+
+<td>
+
+{{$parameter->parametername}}
+
+</td>
+</tr>
+
+
+@endforeach
+
+
+
+@endforeach
+
+</tbody>
+</table>
+
+
+
+@endsection
+
+@section('styling')
+
+<style type="text/css">
+
+.mprtable {
+    border: 3px solid green;
+}
+
+</style>
 
 @endsection

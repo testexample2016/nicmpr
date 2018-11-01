@@ -13,13 +13,7 @@
 
      <!-- <link rel="stylesheet" href="{{URL::to('src/css/main.css') }}"> -->
 
-     <style>
-     
-/*input:invalid {
-  background-color: #ffdddd;
-}*/
-    </style>
-
+   
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
        
@@ -38,5 +32,10 @@
     </body>
 
  @yield('script')
+
+ @yield('styling')
+
+
+
 
 </html>
