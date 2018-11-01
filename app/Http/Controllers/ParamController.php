@@ -29,16 +29,6 @@ class ParamController extends Controller
     {
         $projects = Project::all();
 
-        // $projects_list = Project::pluck('projectname', 'id');
-
-        // $projects_list->prepend('Please Select', 'null');
-
-        // $projectnames = Project::pluck('projectname');
-
-        // $projectids = Project::pluck('id');
-
-        // return view('param.create', compact('projects_list','projects'));
-
         return view('param.create', compact('projects'));
 
     }
