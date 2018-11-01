@@ -9,112 +9,57 @@
 
 @section('content')
 
-<table class="table table-hover">
-    <thead>
-      <tr>
-        <th></th>
-        <th></th>
-      </tr>
-    </thead>
-
-    <tbody>
-
-  <tr class="table-info">
-
-<td>Employee Name:</td>
-
-<td> {{$employee->name}}</td>
-
-<td></td>
-
-<td></td>
-
-</tr>
-
- <tr class="table-info">
-
-<td>Designation: </td>
-
-<td> {{$employee->designation}} </td>
-
-<td></td>
-
-<td></td>
-
-</tr>
-
-<tr class="table-info">
-
-<td>Current Year:</td>
-
-<td> {{ Carbon\Carbon::now()->format('Y') }} </td>
+{{$employee->name}}
 
 
-<td>Current Month</td>
-
-<td>  {{ Carbon\Carbon::now()->format('F') }} </td>
-</tr>
-
-</tbody>
-</table>
-
-<table class="table table-bordered table-hover mprtable" >
-    <thead class="mprtable">
-      <tr >
-        <th>Projects</th>
-        <th>Parameters</th>
-        <th>Previous Month</th>
-        <th>Reporting Month</th>
-        <th>Actions</th>
-        <th>Projects</th>
-      </tr>
-    </thead>
-
-  <tbody class="mprtable">
-
-      
+  
       
  @foreach($employee->projects as $project)
 
-<tr class="table-info mprtable">
+ <table class="table " width="100%">
 
-  <td class="mprtable" >{{  $project->projectname }}</td>
+<tr>
 
-  <td class="mprtable">
-    
-<ul>
+<td width="15%" > {{  $project->projectname }}</td>
+
+<td width="80%">
+
+  <table class="table" >
+
+     <thead >
+      <tr >
+        
+        <th>Parameters</th>
+        <th>Previous Month</th>
+        <th>Reporting Month</th>
+        <th>Cumulative Since Inspection</th>
+        
+      </tr>
+    </thead>
 
 @foreach($project->parameters as $parameter)
 
-<li>
+  <tr>
+    <td >{{$parameter->parametername}}</td>
+    <td >work1</td>
+    <td >workkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk2</td>
+    <td>work3</td>
 
-{{$parameter->parametername}}
 
-</li>
+  </tr>
 
 @endforeach
 
-</ul>
+</table>
+</td>
 
-
-  </td>
-
-  <td>
-    
-
-  </td>
+<td width="5%">Edit</td>
 
 </tr>
 
-
-@endforeach
-
-
-
-</tbody>
 </table>
 
-
+@endforeach
 
 @endsection
 
@@ -122,8 +67,17 @@
 
 <style type="text/css">
 
-.mprtable {
-    border: 3px solid green;
+table, th, td, thead {
+     border: 3px solid green;
+}
+
+
+table, td, th, tr 
+{
+  /*table-layout:fixed;*/
+  /*width:20px;*/
+  overflow:hidden;
+  word-wrap:break-word;
 }
 
 </style>
