@@ -45,6 +45,8 @@ Route::resource('param', 'ParamController');
 
 Route::resource('employee', 'EmployeeController');
 
+Route::get('progress/{id}', 'EmployeeController@createProgress');
+
 
 
 

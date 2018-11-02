@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\User;
 
+use App\Project;
+
+use App\Progress;
+
 use Carbon\Carbon;
 
 use Illuminate\Http\Request;
@@ -36,6 +40,16 @@ class EmployeeController extends Controller
     public function create()
     {
         //
+    }
+
+    public function createProgress($id)
+    {
+        
+        $project = Project::findOrFail($id);
+
+        return view('employee.create', compact('project'));
+
+
     }
 
     /**
