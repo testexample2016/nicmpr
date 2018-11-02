@@ -60,7 +60,20 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       $z = $request->preMonth; //insert x,y,z into progress table
+
+       dd($z);
+
+        // $y = $request->cumuInspection;
+
+        // dd($y);
+
+        // $x = $request->repMonth;
+
+        // dd($x);
+
+
+
     }
 
     /**

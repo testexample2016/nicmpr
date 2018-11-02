@@ -101,6 +101,50 @@
 
 <hr/>
 
+<table class="table table-bordered">
+
+	<thead>
+      <tr >
+        <th>Parameters</th>
+        <th>Previous Month</th>
+        <th>Reporting Month</th>
+        <th>Cumulative Since Inspection</th>
+      </tr>
+    </thead>
+
+    <tbody>
+	
+@foreach($project->parameters as $parameter)
+
+<tr>
+	<td>{{ $parameter->parametername }}</td>
+
+<td>
+ <div class="form-group">
+  <textarea class="form-control" rows="5" name="preMonth[{{$parameter->id}}]"></textarea>
+</div>
+
+</td>
+
+<td>
+ <div class="form-group">
+  <textarea class="form-control" rows="5" name="repMonth[{{$parameter->id}}]"></textarea>
+</div>
+</td>
+
+<td>
+ <div class="form-group">
+  <textarea class="form-control" rows="5" name="cumuInspection[{{$parameter->id}}]"></textarea>
+</div>
+</tr>
+
+@endforeach
+</tbody>
+</table>
+
+<div class="form-group">
+	{!! Form::submit("Submit Progress", ['class' => 'btn btn-primary form-control' ]) !!}
+</div>
 
 
 {!!Form::close() !!}
