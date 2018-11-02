@@ -9,57 +9,129 @@
 
 @section('content')
 
-{{$employee->name}}
+<table class="table table-hover">
+    <thead>
+      <tr>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+
+  <tr class="table-info">
+
+<td>Employee Name:</td>
+
+<td> {{$employee->name}}</td>
+
+<td></td>
+
+<td></td>
+
+</tr>
+
+ <tr class="table-info">
+
+<td>Designation: </td>
+
+<td> {{$employee->designation}} </td>
+
+<td></td>
+
+<td></td>
+
+</tr>
+
+<tr class="table-info">
+
+<td>Current Year:</td>
+
+<td> {{ Carbon\Carbon::now()->format('Y') }} </td>
 
 
-  
-      
- @foreach($employee->projects as $project)
+<td>Current Month</td>
 
- <table class="table " width="100%">
+<td>  {{ Carbon\Carbon::now()->format('F') }} </td>
+</tr>
 
-<tr>
+</tbody>
+</table>
 
-<td width="15%" > {{  $project->projectname }}</td>
+<table class="table table-bordered">
 
-<td width="80%">
-
-  <table class="table" >
-
-     <thead >
+    <thead>
       <tr >
-        
+        <th>Projects</th>
         <th>Parameters</th>
         <th>Previous Month</th>
         <th>Reporting Month</th>
         <th>Cumulative Since Inspection</th>
-        
+        <th>Actions</th>
       </tr>
     </thead>
 
-@foreach($project->parameters as $parameter)
+    <tbody>
+  
+  @foreach($employee->projects as $project)
+
+  @php
+
+  $counter =0
+
+  @endphp
+
+    @foreach($project->parameters as $parameter)
+
 
   <tr>
-    <td >{{$parameter->parametername}}</td>
-    <td >work1</td>
-    <td >workkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk2</td>
-    <td>work3</td>
+
+@if($counter==0)
+    
+<td rowspan="{{$project->noOfParam}}">
+
+ 
+ {{  $project->projectname }}
 
 
-  </tr>
+ @endif
 
-@endforeach
-
-</table>
 </td>
 
-<td width="5%">Edit</td>
+<td>{{ $parameter->parametername }}</td>
+
+<td>work1</td>
+
+<td>work2</td>
+
+<td>work3</td>
+
+@if($counter==0)
+    
+<td rowspan="{{$project->noOfParam}}">
+
+ Edit
+
+ @endif
+
 
 </tr>
 
-</table>
+@php
+
+$counter++
+
+@endphp
 
 @endforeach
+
+@endforeach
+
+</tbody>
+
+</table>
+
+
 
 @endsection
 
@@ -67,17 +139,8 @@
 
 <style type="text/css">
 
-table, th, td, thead {
-     border: 3px solid green;
-}
-
-
-table, td, th, tr 
-{
-  /*table-layout:fixed;*/
-  /*width:20px;*/
-  overflow:hidden;
-  word-wrap:break-word;
+.mprtable {
+    border: 3px solid green;
 }
 
 </style>
