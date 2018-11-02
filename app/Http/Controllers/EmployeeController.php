@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\User;
 
+use App\Project;
+
+use App\Progress;
+
 use Carbon\Carbon;
 
 use Illuminate\Http\Request;
@@ -38,6 +42,16 @@ class EmployeeController extends Controller
         //
     }
 
+    public function createProgress($id)
+    {
+        
+        $project = Project::findOrFail($id);
+
+        return view('employee.create', compact('project'));
+
+
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -46,7 +60,20 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       $z = $request->preMonth; //insert x,y,z into progress table
+
+       dd($z);
+
+        // $y = $request->cumuInspection;
+
+        // dd($y);
+
+        // $x = $request->repMonth;
+
+        // dd($x);
+
+
+
     }
 
     /**

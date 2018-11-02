@@ -90,6 +90,7 @@
     
 <td rowspan="{{$project->noOfParam}}">
 
+<a href="{{ action('EmployeeController@createProgress', [$project->id]) }}">
  
  {{  $project->projectname }}
 
