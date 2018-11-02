@@ -58,60 +58,77 @@
 </tbody>
 </table>
 
-<table class="table table-bordered table-hover mprtable" >
-    <thead class="mprtable">
+<table class="table table-bordered">
+
+    <thead>
       <tr >
         <th>Projects</th>
         <th>Parameters</th>
         <th>Previous Month</th>
         <th>Reporting Month</th>
+        <th>Cumulative Since Inspection</th>
         <th>Actions</th>
-        <th>Projects</th>
       </tr>
     </thead>
 
-  <tbody class="mprtable">
+    <tbody>
+  
+  @foreach($employee->projects as $project)
 
-      
-      
- @foreach($employee->projects as $project)
+  @php
 
-<tr class="table-info mprtable">
+  $counter =0
 
-  <td class="mprtable" >{{  $project->projectname }}</td>
+  @endphp
 
-  <td class="mprtable">
+    @foreach($project->parameters as $parameter)
+
+
+  <tr>
+
+@if($counter==0)
     
-<ul>
+<td rowspan="{{$project->noOfParam}}">
 
-@foreach($project->parameters as $parameter)
-
-<li>
-
-{{$parameter->parametername}}
-
-</li>
-
-@endforeach
-
-</ul>
+ 
+ {{  $project->projectname }}
 
 
-  </td>
+ @endif
 
-  <td>
+</td>
+
+<td>{{ $parameter->parametername }}</td>
+
+<td>work1</td>
+
+<td>work2</td>
+
+<td>work3</td>
+
+@if($counter==0)
     
+<td rowspan="{{$project->noOfParam}}">
 
-  </td>
+ Edit
+
+ @endif
+
 
 </tr>
 
+@php
+
+$counter++
+
+@endphp
 
 @endforeach
 
-
+@endforeach
 
 </tbody>
+
 </table>
 
 
