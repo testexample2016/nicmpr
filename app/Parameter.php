@@ -13,8 +13,15 @@ class Parameter extends Model
     	
     ];
 
+    
+
     public function project()
     {
         return $this->belongsTo('App\Project');
+    }
+
+    public function progresses()
+    {
+        return $this->hasMany('App\Progress');
     }
 }

@@ -24,4 +24,9 @@ class project extends Model
     {
         return $this->hasMany('App\Parameter');
     }
+
+     public function progresses()
+    {
+        return $this->hasManyThrough('App\Progress', 'App\Parameter');
+    }
 }
