@@ -74,16 +74,13 @@ class ParamController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
     public function store(ParameterCreateRequest $request)
     {
-         
                 
          $this->paramValueSet($request->parameters, $request->project);
 
          $project = Project::findOrFail($request->project);
 
-           return view('project.show', compact('project'));
          return view('project.show', compact('project'));
     }
 
@@ -120,7 +117,6 @@ class ParamController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
     public function update(ParameterUpdateRequest $request, $id)
     {
 
