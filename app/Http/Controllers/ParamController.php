@@ -6,6 +6,8 @@ use App\Project;
 
 use App\Parameter;
 
+use Illuminate\Support\Facades\DB;
+
 use Illuminate\Http\Request;
 
 class ParamController extends Controller
@@ -27,9 +29,37 @@ class ParamController extends Controller
      */
     public function create()
     {
-        $projects = Project::all();
+        
 
-        return view('param.create', compact('projects'));
+
+
+        $projects_mapped = DB::table('parameters') //make it in query scope to clean it up
+
+                   ->select('parameters.project_id')
+
+                   ->distinct()
+
+                   ;
+
+        $projects_unmapped = DB::table('projects')
+
+                    ->whereNotIn('id',$projects_mapped)
+                    
+                    ->get();
+
+
+        //     dd($projects_unmapped);                        //alternative method
+
+        // $projects_unmapped = DB::table('projects')->whereNotIn('id', function($q){
+
+        //  $q->select('project_id')->from('parameters');
+        
+        //     })->get();
+
+// dd($projects_unmapped);
+
+
+        return view('param.create', compact('projects_unmapped'));
 
     }
 

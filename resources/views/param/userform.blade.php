@@ -9,9 +9,11 @@
 
    <option value="null" class="form-group">Please Select</option>
 
-   @foreach ($projects as $project)
+   @foreach ($projects_unmapped as $project)
 
-   <option value="{{ $project->id  }}" param="{{ $project->noOfParam }}">{{$project->projectname}}</option>
+   <option value="{{ $project->id  }}" param="{{ $project->noOfParam }}">
+
+   	{{$project->projectname}}</option>
    
   @endforeach
 
