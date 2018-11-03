@@ -78,6 +78,7 @@ class ParamController extends Controller
     public function store(ParameterCreateRequest $request)
     {
          
+                
          $this->paramValueSet($request->parameters, $request->project);
 
          $project = Project::findOrFail($request->project);
