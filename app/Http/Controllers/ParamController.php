@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\Request;
 
+use App\Http\Requests\ParameterCreateRequest;
+
+use App\Http\Requests\ParameterUpdateRequest;
+
+
 class ParamController extends Controller
 {
     /**
@@ -70,6 +75,7 @@ class ParamController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
+    public function store(ParameterCreateRequest $request)
     {
          
          $this->paramValueSet($request->parameters, $request->project);
@@ -77,6 +83,7 @@ class ParamController extends Controller
          $project = Project::findOrFail($request->project);
 
            return view('project.show', compact('project'));
+         return view('project.show', compact('project'));
     }
 
     /**
@@ -113,7 +120,9 @@ class ParamController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
+    public function update(ParameterUpdateRequest $request, $id)
     {
+
 
         for($i=0;$i<count($request->parameters);$i++)
 
