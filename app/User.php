@@ -27,5 +27,10 @@ class User extends Model
         return $this->hasMany('App\Project');
     }
 
+    public function statuses()
+    {
+        return $this->hasMany('App\Status');
+    }
+
    
 }
