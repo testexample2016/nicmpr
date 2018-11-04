@@ -35,9 +35,9 @@ class AdminController extends Controller
 
     public function show($id){
 
-    	$user = User::findOrFail($id);
+    	$employee = User::findOrFail($id);
 
-    	return view('admin.show', compact('user'));
+    	return view('employee.index', compact('employee'));
   
     }
 

@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\Request;
 
+use App\Http\Requests\ParameterCreateRequest;
+
+use App\Http\Requests\ParameterUpdateRequest;
+
+
 class ParamController extends Controller
 {
     /**
@@ -69,14 +74,14 @@ class ParamController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ParameterCreateRequest $request)
     {
-         
+                
          $this->paramValueSet($request->parameters, $request->project);
 
          $project = Project::findOrFail($request->project);
 
-           return view('project.show', compact('project'));
+         return view('project.show', compact('project'));
     }
 
     /**
@@ -112,8 +117,9 @@ class ParamController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ParameterUpdateRequest $request, $id)
     {
+
 
         for($i=0;$i<count($request->parameters);$i++)
 
@@ -156,7 +162,7 @@ class ParamController extends Controller
          for($i=0;$i<count($parameters);$i++)
 
         {
-           $param = new Parameter();
+           $param = new Parameter();  //updatreorcreate method not applicable as only project_id no sufficient for identifying a specific column, parameter_id neded
 
            $param->project_id =  $id; 
 

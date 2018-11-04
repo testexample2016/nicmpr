@@ -45,7 +45,11 @@ Route::resource('param', 'ParamController');
 
 Route::resource('employee', 'EmployeeController');
 
+Route::get('final/{id}', 'EmployeeController@finalSubmit');
+
 Route::get('progress/{id}', 'EmployeeController@createProgress');
+
+
 
 
 

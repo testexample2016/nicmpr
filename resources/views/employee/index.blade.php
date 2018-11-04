@@ -89,13 +89,20 @@
 @if($counter==0)
     
 <td rowspan="{{$project->noOfParam}}">
-
+  @if($employee->statuses()->where([
+                    ['year_month', '=', '2018-11'],
+                    ['submitted', '=', 1]
+                ])->exists())
+  {{  $project->projectname }}
+  @else
 <a href="{{ action('EmployeeController@createProgress', [$project->id]) }}">
  
  {{  $project->projectname }}
 
+</a>
+@endif
 
- @endif
+@endif
 
 </td>
 
@@ -103,7 +110,11 @@
 
 <td>work1</td>
 
-<td>work2</td>
+<td>
+ @if($parameter->progresses()->where('year_month', '2018-11')->exists())
+{{ $parameter->progresses()->where('year_month', '2018-11')->value('progress')}}
+@endif
+</td>
 
 <td>work3</td>
 
@@ -132,18 +143,21 @@ $counter++
 
 </table>
 
+<div class="form-group">
+  <a href="{{ action('EmployeeController@finalSubmit', ['id' => $employee->id]) }}" class="btn btn-info" role="button"> Final Submit</a>
+</div>
 
 
 @endsection
 
 @section('styling')
 
-<style type="text/css">
+<!-- <style type="text/css">
 
 .mprtable {
     border: 3px solid green;
 }
 
-</style>
+</style> -->
 
 @endsection
