@@ -25,7 +25,7 @@ class EmployeeController extends Controller
     {
         // dd(Carbon::now()->format('F'));
 
-        $employee_id = 1; //Hardcoded Employee for the time being
+        $employee_id = 2; //Hardcoded Employee for the time being
 
         $employee = User::findOrFail($employee_id);
 
@@ -83,7 +83,7 @@ class EmployeeController extends Controller
 
       
 
-       $employee_id = 1; //Hardcoded Employee for the time being
+       $employee_id = 2; //Hardcoded Employee for the time being
 
        $employee = User::findOrFail($employee_id);
 
