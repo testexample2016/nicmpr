@@ -128,7 +128,14 @@
 
 <td>
  <div class="form-group">
-  <textarea class="form-control" rows="5" name="repMonth[{{$parameter->id}}]"></textarea>
+  <textarea class="form-control" rows="5" name="repMonth[{{$parameter->id}}]">
+@foreach($parameter->progresses as $progress)
+@if($progress->year_month == '2018-11')
+{{ $progress->progress}}
+@break
+@endif
+@endforeach
+</textarea>
 </div>
 </td>
 
@@ -138,13 +145,15 @@
 </div>
 </tr>
 
+
 @endforeach
 </tbody>
 </table>
 
 <div class="form-group">
-	{!! Form::submit("Submit Progress", ['class' => 'btn btn-primary form-control' ]) !!}
+	{!! Form::submit("Save Progress", ['class' => 'btn btn-info form-control']) !!}
 </div>
+
 
 
 {!!Form::close() !!}

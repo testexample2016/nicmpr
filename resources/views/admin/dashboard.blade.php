@@ -28,7 +28,17 @@
       <tr>
         <td><a href="{{ action('AdminController@show', [$user->id]) }}"> {{ $user->name }} </a></td>
         <td>{{ $user->designation }}</td>
-        <td>Not Submitted <span>&#10006;</span></td>
+        <td>@if($user->statuses()->where([
+                    ['year_month', '=', '2018-11'],
+                    ['submitted', '=', 1]
+                ])->exists())
+Submitted <span>&#10004;</span>
+@else
+Not Submitted <span>&#10006;</span>
+@endif
+
+          
+       </td>
         
       </tr>
 

@@ -8,6 +8,8 @@ use App\Project;
 
 use App\Progress;
 
+use App\Status;
+
 use Carbon\Carbon;
 
 use Illuminate\Http\Request;
@@ -60,19 +62,87 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-       $z = $request->preMonth; //insert x,y,z into progress table
+       
 
-       dd($z);
+       // $x = $request->preMonth; //no need to insert into progress table, but first fetch it in create view
 
-        // $y = $request->cumuInspection;
+       // dd($x);
+
+        // dd(date('Y-m'));
+
+        
+
+        // $z = $request->cumuInspection; //create a cumuInspection that has one to one relationship with parameter table there insert it, but first fetch it in create view
+
+        // dd($z);
+
+        // dd($request->submitbutton);
+
+  
+       $this->saveProgress($request);
+
+      
+
+       $employee_id = 1; //Hardcoded Employee for the time being
+
+       $employee = User::findOrFail($employee_id);
+
+     
+       return view('employee.index', compact('employee'));
+
+
+    }
+
+
+    public function finalSubmit($id){
+
+            // dd($id);
+
+
+             $employee_id = $id; //Hardcoded Employee for the time being
+
+             $employee = User::findOrFail($employee_id);
+
+             $status = new Status();
+
+             $status->user_id = $employee_id;
+
+             $status->year_month = date('Y-m');
+
+             $status->submitted = 1;
+
+             $status->save();
+
+            return view('employee.index', compact('employee'));
+
+
+
+    }
+
+
+    public function saveProgress(Request $request){
+
+        $y = $request->repMonth;
 
         // dd($y);
 
-        // $x = $request->repMonth;
+         foreach($y as $parameter_id=>$progress_value) 
 
-        // dd($x);
+       {
+            $progress = new Progress();
 
+                      
+            $progress = Progress::updateOrCreate(
 
+                 ['parameter_id' => $parameter_id, 'year_month' => date('Y-m')],
+
+                     ['progress' => $progress_value]
+
+                 );
+
+       }
+
+       return;
 
     }
 

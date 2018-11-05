@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProgressesTable extends Migration
+class CreateStatusesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,16 @@ class CreateProgressesTable extends Migration
      */
     public function up()
     {
-        Schema::create('progresses', function (Blueprint $table) {
+        Schema::create('statuses', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('parameter_id')->unsigned();
+            $table->integer('user_id')->nullable()->unsigned();
             $table->string('year_month');
-            $table->text('progress');
+            $table->boolean('submitted')->default(0);
             $table->timestamps();
 
-            $table->foreign('parameter_id')->references('id')->on('parameters');
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
         });
     }
 
@@ -31,6 +33,6 @@ class CreateProgressesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('progresses');
+        Schema::dropIfExists('statuses');
     }
 }

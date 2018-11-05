@@ -6,7 +6,14 @@ use App\Project;
 
 use App\Parameter;
 
+use Illuminate\Support\Facades\DB;
+
 use Illuminate\Http\Request;
+
+use App\Http\Requests\ParameterCreateRequest;
+
+use App\Http\Requests\ParameterUpdateRequest;
+
 
 class ParamController extends Controller
 {
@@ -27,9 +34,37 @@ class ParamController extends Controller
      */
     public function create()
     {
-        $projects = Project::all();
+        
 
-        return view('param.create', compact('projects'));
+
+
+        $projects_mapped = DB::table('parameters') //make it in query scope to clean it up
+
+                   ->select('parameters.project_id')
+
+                   ->distinct()
+
+                   ;
+
+        $projects_unmapped = DB::table('projects')
+
+                    ->whereNotIn('id',$projects_mapped)
+                    
+                    ->get();
+
+
+        //     dd($projects_unmapped);                        //alternative method
+
+        // $projects_unmapped = DB::table('projects')->whereNotIn('id', function($q){
+
+        //  $q->select('project_id')->from('parameters');
+        
+        //     })->get();
+
+// dd($projects_unmapped);
+
+
+        return view('param.create', compact('projects_unmapped'));
 
     }
 
@@ -39,14 +74,14 @@ class ParamController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ParameterCreateRequest $request)
     {
-         
+                
          $this->paramValueSet($request->parameters, $request->project);
 
          $project = Project::findOrFail($request->project);
 
-           return view('project.show', compact('project'));
+         return view('project.show', compact('project'));
     }
 
     /**
@@ -82,8 +117,9 @@ class ParamController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ParameterUpdateRequest $request, $id)
     {
+
 
         for($i=0;$i<count($request->parameters);$i++)
 
@@ -126,7 +162,7 @@ class ParamController extends Controller
          for($i=0;$i<count($parameters);$i++)
 
         {
-           $param = new Parameter();
+           $param = new Parameter();  //updatreorcreate method not applicable as only project_id no sufficient for identifying a specific column, parameter_id neded
 
            $param->project_id =  $id; 
 

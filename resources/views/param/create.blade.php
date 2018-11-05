@@ -10,7 +10,7 @@
 
 @section('content')
 
-@include('errors.error')
+@include('errors.errorParam')
 
 <h1>Create Project Parameter</h1>
 
@@ -30,8 +30,8 @@
 
 <script>
    
-function GetDynamicTextBox() {
-           return '<br><input name = "parameters[]" type="text" class="form-control"  /></br>';
+function GetDynamicTextBox(i) {
+           return '<br><label for="parameters">Parameter '+ i +':</label> <input name = "parameters[]" type="text" class="form-control"  required></br>';
        }
 
        $(document).ready(function(){
@@ -48,7 +48,7 @@ function GetDynamicTextBox() {
 
             var div = document.createElement('DIV');
            div.setAttribute("class", "form-group");
-            div.innerHTML = GetDynamicTextBox();
+            div.innerHTML = GetDynamicTextBox(i+1);
 
            document.getElementById("TextBoxContainer").appendChild(div);
 
