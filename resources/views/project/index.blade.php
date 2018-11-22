@@ -26,7 +26,7 @@
 
      	@foreach ($projects as $project)
       <tr>
-        <td><a href="{{ action('ProjectController@show', [$project->id]) }}">{{ $project->projectname }} </td>
+        <td><a href="{{ action('ProjectController@show', [$project->id]) }}">{{ $project->projectname }} </a></td>
         <td>
 
           @if($project->user_id)
