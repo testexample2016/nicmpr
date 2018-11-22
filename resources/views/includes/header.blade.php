@@ -2,8 +2,15 @@
   
 <nav class="navbar navbar-default">
   <div class="container-fluid">
+
+@if(Auth::user()->isAdmin)
     <div class="navbar-header">
       <a class="navbar-brand" href="{{ action('AdminController@getDashboard') }}">Admin Dashboard</a>
+    </div>
+@endif
+
+    <div class="navbar-header">
+      <a class="navbar-brand" href="{{ action('EmployeeController@index') }}">Employee Dashboard</a>
     </div>
 
     <div class="navbar-header">

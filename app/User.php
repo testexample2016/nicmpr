@@ -2,25 +2,37 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
+use App\Notifications\MailResetPasswordNotification;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Model
+class User extends Authenticatable
 {
-    protected $fillable = [
+    use Notifiable;
 
-    	'name',
-    	'designation',
-    	'email',
-    	'password'
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name', 'designation', 'email', 'password',
     ];
 
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
 
-  public function setPasswordAttribute($password){
+     public function setPasswordAttribute($password){
 
     $this->attributes['password'] = bcrypt($password);
-
-   }
-
+  
+    }
 
     public function projects()
     {
@@ -32,5 +44,4 @@ class User extends Model
         return $this->hasMany('App\Status');
     }
 
-   
 }

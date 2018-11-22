@@ -12,10 +12,20 @@ use App\Status;
 
 use Carbon\Carbon;
 
+use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
 {
+    
+
+    public function __construct()
+{
+    $this->middleware('auth');
+}
+
+
     /**
      * Display a listing of the resource.
      *
@@ -25,9 +35,11 @@ class EmployeeController extends Controller
     {
         // dd(Carbon::now()->format('F'));
 
-        $employee_id = 1; //Hardcoded Employee for the time being
+        // $employee_id = 1; //Hardcoded Employee for the time being
 
-        $employee = User::findOrFail($employee_id);
+        // $employee = User::findOrFail($employee_id);
+
+        $employee = Auth::user();
 
         return view('employee.index', compact('employee'));
 
@@ -83,9 +95,9 @@ class EmployeeController extends Controller
 
       
 
-       $employee_id = 1; //Hardcoded Employee for the time being
+       $employee = Auth::user(); //Hardcoded Employee for the time being
 
-       $employee = User::findOrFail($employee_id);
+       // $employee = User::findOrFail($employee_id);
 
      
        return view('employee.index', compact('employee'));
