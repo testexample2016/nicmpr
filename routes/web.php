@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth/login');
 });
 
 
@@ -26,12 +26,12 @@ Route::get('/', function () {
 // Route::post('admin', 'AdminController@store' );
 
 
-Route::get('/admin/dashboard', 'AdminController@getDashboard');
+Route::get('/admin/dashboard', 'AdminController@getDashboard')->middleware('auth');
 
 
-Route::resource('admin', 'AdminController');
+Route::resource('admin', 'AdminController')->middleware('admin');
 
-Route::resource('project', 'ProjectController');
+Route::resource('project', 'ProjectController')->middleware('admin');
 
 
 // Route::get('ajax',function(){
@@ -41,7 +41,7 @@ Route::resource('project', 'ProjectController');
 // Route::post('getmsg','ParamController@ajaxtest');
 
 
-Route::resource('param', 'ParamController');
+Route::resource('param', 'ParamController')->middleware('admin');;
 
 Route::resource('employee', 'EmployeeController');
 
@@ -49,11 +49,7 @@ Route::get('final/{id}', 'EmployeeController@finalSubmit');
 
 Route::get('progress/{id}', 'EmployeeController@createProgress');
 
+Auth::routes();
 
-
-
-
-
-
-
+Route::get('/home', 'HomeController@index')->name('home');
 
