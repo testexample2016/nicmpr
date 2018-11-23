@@ -20,12 +20,26 @@
 
 <div class="form-group">
 
-Open MPR for (month and year): <input type="month" name="year_month">
+<div class="form-row">
+
+  <div class="col">
+
+Open MPR for (month and year): <input type="month" name="open_year_month">
+
+  </div>
+
+  <div class="col">
+
+Close MPR for (month and year): <input type="month" name="close_year_month">
+
+ </div>
+
+</div>
 
 </div>
   
  <div class="form-group">
-	{!! Form::submit('Submit', ['class' => 'btn btn-primary form-control' ]) !!}
+	{!! Form::submit('Submit', ['class' => 'btn btn-primary ' ]) !!}
 </div>
 
 
@@ -48,7 +62,13 @@ Open MPR for (month and year): <input type="month" name="year_month">
      	@foreach ($mprdurations as $mprduration)
       <tr>
         <td>{{ $mprduration->year_month }} </td>
-        <td>{{ $mprduration->closed }}</td>
+        <td>
+          @if($mprduration->closed)
+          Closed
+          @else
+          Open
+          @endif
+        </td>
       </tr>
 
       @endforeach

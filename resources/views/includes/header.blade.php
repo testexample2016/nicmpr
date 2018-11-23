@@ -7,6 +7,10 @@
     <div class="navbar-header">
       <a class="navbar-brand" href="{{ action('AdminController@getDashboard') }}">Admin Dashboard</a>
     </div>
+
+    <div class="navbar-header">
+      <a class="navbar-brand" href="{{ action('MprdurationController@index') }}">MPR Open/Close</a>
+    </div>
 @endif
 
     <div class="navbar-header">
