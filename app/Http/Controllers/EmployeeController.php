@@ -38,19 +38,15 @@ class EmployeeController extends Controller
  
         $employee = Auth::user();
 
-        // $mprduration = Mprduration::where([
-
-        //     ['year_month','=' ,date('Y-m')],
-
-        //     ['closed','=' ,0],
-
-        // ])->first();
-
         $mprdurationstatus = $this->mprdurationcheck();
 
-       
+       $date = $this->createdate();
 
-        return view('employee.index', compact('employee','mprdurationstatus'));
+
+
+         // dd($date);
+      
+        return view('employee.index', compact('employee','mprdurationstatus','date'));
 
 
     }
@@ -111,28 +107,30 @@ class EmployeeController extends Controller
        $employee = User::findOrFail($request->emp);
 
        $mprdurationstatus = $this->mprdurationcheck();
+
+       $date = $this->createdate();
        
 
-        return view('employee.index', compact('employee','mprdurationstatus'));
+         return view('employee.index', compact('employee','mprdurationstatus','date'));
 
 
     }
 
 
-    public function finalSubmit(){
+    public function finalSubmit($id){
 
-            // dd($id);
-
-
-             
+            // dd($request->emp);
 
              $status = new Status();
 
-             $status->year_month = date('Y-m');
+             $year_month = Mprduration::where('closed', 0)->value('year_month');
+
+
+             $status->year_month = $year_month;
 
              $status->submitted = 1;
 
-             $employee = Auth::user();
+             $employee = User::findOrFail($id);
 
              $employee->statuses()->save($status);
 
@@ -143,6 +141,11 @@ class EmployeeController extends Controller
           //   ['submitted' => 1]
         
           // );
+
+             if(Auth::user()->isAdmin){
+
+                return redirect()->action('EmployeeController@adminindex', ['id' => $id]);
+             }
 
             
 
@@ -167,7 +170,7 @@ class EmployeeController extends Controller
                       
             $progress = Progress::updateOrCreate(
 
-                 ['parameter_id' => $parameter_id, 'year_month' => date('Y-m')],
+                 ['parameter_id' => $parameter_id, 'year_month' => Mprduration::where('closed', 0)->value('year_month')],
 
                      ['progress' => $progress_value]
 
@@ -181,7 +184,7 @@ class EmployeeController extends Controller
 
     public function mprdurationcheck()
     {
-         $mprduration = Mprduration::where('year_month','=' ,date('Y-m'))->first();
+         $mprduration = Mprduration::where('closed','=' ,0)->first();
 
         if($mprduration == null)
 
@@ -194,17 +197,49 @@ class EmployeeController extends Controller
            $mprdurationstatus = 'Opened'; 
         }
 
-        elseif($mprduration->closed == 1)
-        {
-           $mprdurationstatus = 'Closed'; 
-        }
-
         else{
 
             $mprdurationstatus = 'wrong';
         }
 
         return $mprdurationstatus;
+    }
+
+    public function adminindex($id)
+    {
+         $employee = User::findOrFail($id);
+
+        $mprdurationstatus = $this->mprdurationcheck();
+
+        $date = $this->createdate();
+
+       
+
+      
+
+         return view('employee.index', compact('employee','mprdurationstatus','date'));
+    }
+
+    public function splityearmonth()
+    {
+        $year_month = Mprduration::where('closed', 0)->value('year_month');
+
+        $ym = explode("-", $year_month);
+
+        return $ym;
+    }
+
+    public function createdate(){
+
+         $ym = $this->splityearmonth();
+
+        $year = $ym[0];
+
+        $month = $ym[1];
+
+        $date = date_create($year.'-'.$month.'-'."1");
+
+        return $date;
     }
 
 

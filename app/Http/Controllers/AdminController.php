@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\User;
 
+use App\Mprduration;
+
 use App\Http\Requests\UserCreateRequest;
 
 use App\Http\Requests\UserUpdateRequest;
@@ -42,7 +44,13 @@ class AdminController extends Controller
 
     	$employee = User::findOrFail($id);
 
-    	return view('employee.index', compact('employee'));
+        $mprdurationstatus = $this->mprdurationcheck();
+
+        $date = $this->createdate();
+
+         // dd($date);
+      
+        return view('employee.index', compact('employee','mprdurationstatus','date'));
   
     }
 
@@ -81,6 +89,59 @@ class AdminController extends Controller
 
     	return redirect('admin');
   
+    }
+
+    public function mprdurationcheck()
+    {
+         
+
+         $mprduration = Mprduration::where('year_month','=' ,date('Y-m'))->first();
+
+        if($mprduration == null)
+
+        {
+            $mprdurationstatus = 'NotGenerated';
+        }
+
+        elseif($mprduration->closed == 0)
+        {
+           $mprdurationstatus = 'Opened'; 
+        }
+
+        elseif($mprduration->closed == 1)
+        {
+           $mprdurationstatus = 'Closed'; 
+        }
+
+        else{
+
+            $mprdurationstatus = 'wrong';
+        }
+
+        return $mprdurationstatus;
+    }
+
+
+    public function splityearmonth()
+    {
+        $year_month = Mprduration::where('closed', 0)->value('year_month');
+
+        $ym = explode("-", $year_month);
+
+        return $ym;
+    }
+
+    public function createdate(){
+
+         $ym = $this->splityearmonth();
+
+        $year = $ym[0];
+
+        $month = $ym[1];
+
+        $date = date_create($year.'-'.$month.'-'."1");
+
+        return $date;
     }
 
 

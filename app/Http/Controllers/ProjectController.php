@@ -136,7 +136,7 @@ class ProjectController extends Controller
 
     private function formatUsers() {
 
-        $users = User::pluck('name', 'id'); //As this is a collection so convert it to array
+        $users = User::where('isAdmin','!=', 1 )->pluck('name', 'id'); //As this is a collection so convert it to array
 
        // $users[0] = 'Not Assisgned';
 

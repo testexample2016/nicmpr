@@ -12,4 +12,7 @@ class Mprduration extends Model
     	'closed'
     	
     ];
+
+
+
 }
