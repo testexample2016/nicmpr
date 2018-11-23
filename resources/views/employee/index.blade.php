@@ -58,6 +58,8 @@
 </tbody>
 </table>
 
+@if($mprdurationstatus == 'Opened')
+
 <table class="table table-bordered">
 
     <thead>
@@ -143,6 +145,8 @@ $counter++
 
 </table>
 
+
+
 @if($employee->statuses()->where([
                     ['year_month', '=', '2018-11'],
                     ['submitted', '=', 1]
@@ -152,6 +156,20 @@ $counter++
 <div class="form-group">
   <a href="{{ action('EmployeeController@finalSubmit') }}" class="btn btn-info" role="button"> Final Submit</a>
 </div>
+
+@endif
+
+@elseif($mprdurationstatus == 'NotGenerated')
+
+MPR for current month Not generated.
+
+@elseif($mprdurationstatus == 'Closed')
+
+MPR for current month Closed.
+
+@elseif($mprdurationstatus == 'wrong')
+
+Something went wrong.
 
 @endif
 

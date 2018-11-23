@@ -10,6 +10,8 @@ use App\Progress;
 
 use App\Status;
 
+use App\Mprduration;
+
 use Carbon\Carbon;
 
 use Illuminate\Support\Facades\Auth;
@@ -33,15 +35,22 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        // dd(Carbon::now()->format('F'));
-
-        // $employee_id = 1; //Hardcoded Employee for the time being
-
-        // $employee = User::findOrFail($employee_id);
-
+ 
         $employee = Auth::user();
 
-        return view('employee.index', compact('employee'));
+        // $mprduration = Mprduration::where([
+
+        //     ['year_month','=' ,date('Y-m')],
+
+        //     ['closed','=' ,0],
+
+        // ])->first();
+
+        $mprdurationstatus = $this->mprdurationcheck();
+
+       
+
+        return view('employee.index', compact('employee','mprdurationstatus'));
 
 
     }
@@ -59,6 +68,8 @@ class EmployeeController extends Controller
     public function createProgress($id)
     {
         
+        
+
         $project = Project::findOrFail($id);
 
         return view('employee.create', compact('project'));
@@ -99,8 +110,10 @@ class EmployeeController extends Controller
 
        $employee = User::findOrFail($request->emp);
 
-     
-       return view('employee.index', compact('employee'));
+       $mprdurationstatus = $this->mprdurationcheck();
+       
+
+        return view('employee.index', compact('employee','mprdurationstatus'));
 
 
     }
@@ -165,6 +178,35 @@ class EmployeeController extends Controller
        return;
 
     }
+
+    public function mprdurationcheck()
+    {
+         $mprduration = Mprduration::where('year_month','=' ,date('Y-m'))->first();
+
+        if($mprduration == null)
+
+        {
+            $mprdurationstatus = 'NotGenerated';
+        }
+
+        elseif($mprduration->closed == 0)
+        {
+           $mprdurationstatus = 'Opened'; 
+        }
+
+        elseif($mprduration->closed == 1)
+        {
+           $mprdurationstatus = 'Closed'; 
+        }
+
+        else{
+
+            $mprdurationstatus = 'wrong';
+        }
+
+        return $mprdurationstatus;
+    }
+
 
     /**
      * Display the specified resource.

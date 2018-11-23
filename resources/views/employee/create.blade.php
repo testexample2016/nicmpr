@@ -106,7 +106,7 @@
 	<thead>
       <tr >
         <th>Parameters</th>
-        <th>Previous Month</th>
+        <!-- <th>Previous Month</th> -->
         <th>Reporting Month</th>
         <th>Cumulative Since Inspection</th>
       </tr>
@@ -119,12 +119,12 @@
 <tr>
 	<td>{{ $parameter->parametername }}</td>
 
-<td>
+<!-- <td>
  <div class="form-group">
   <textarea class="form-control" rows="5" name="preMonth[{{$parameter->id}}]"></textarea>
 </div>
 
-</td>
+</td> -->
 
 <td>
  <div class="form-group">
@@ -143,6 +143,7 @@
  <div class="form-group">
   <textarea class="form-control" rows="5" name="cumuInspection[{{$parameter->id}}]"></textarea>
 </div>
+</td>
 </tr>
 
 
