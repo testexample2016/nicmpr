@@ -26,20 +26,22 @@
 
      	@foreach ($users as $user)
       <tr>
-        <td><a href="{{ action('AdminController@show', [$user->id]) }}"> {{ $user->name }} </a></td>
-        <td>{{ $user->designation }}</td>
-        <td>@if($user->statuses()->where([
+       @if($user->statuses()->where([
                     ['year_month', '=', '2018-11'],
                     ['submitted', '=', 1]
                 ])->exists())
-Submitted <span>&#10004;</span>
-@else
-Not Submitted <span>&#10006;</span>
-@endif
+        <td>
+          <a href="{{ action('AdminController@show', [$user->id]) }}"> {{ $user->name }} </a>
+        </td>
+        <td>{{ $user->designation }}</td>
+        <td>Submitted <span>&#10004;</span></td>
 
-          
-       </td>
-        
+       @else
+       <td>{{ $user->name }}</td>
+       <td>{{ $user->designation }}</td>
+       <td>Not Submitted <span>&#10006;</span>  </td>
+       @endif
+      
       </tr>
 
       @endforeach

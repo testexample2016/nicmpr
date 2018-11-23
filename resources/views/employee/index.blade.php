@@ -92,7 +92,7 @@
   @if($employee->statuses()->where([
                     ['year_month', '=', '2018-11'],
                     ['submitted', '=', 1]
-                ])->exists())
+                ])->exists() && !Auth::user()->isAdmin)
   {{  $project->projectname }}
   @else
 <a href="{{ action('EmployeeController@createProgress', [$project->id]) }}">
@@ -143,10 +143,17 @@ $counter++
 
 </table>
 
+@if($employee->statuses()->where([
+                    ['year_month', '=', '2018-11'],
+                    ['submitted', '=', 1]
+                ])->doesntExist())
+
+
 <div class="form-group">
-  <a href="{{ action('EmployeeController@finalSubmit', ['id' => $employee->id]) }}" class="btn btn-info" role="button"> Final Submit</a>
+  <a href="{{ action('EmployeeController@finalSubmit') }}" class="btn btn-info" role="button"> Final Submit</a>
 </div>
 
+@endif
 
 @endsection
 
