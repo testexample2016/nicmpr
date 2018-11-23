@@ -49,6 +49,10 @@ Route::get('final/{id}', 'EmployeeController@finalSubmit');
 
 Route::get('progress/{id}', 'EmployeeController@createProgress');
 
+Route::get('mprduration', 'MprdurationController@index');
+
+Route::post('mprduration', 'MprdurationController@store');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
