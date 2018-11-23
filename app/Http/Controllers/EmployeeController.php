@@ -74,7 +74,7 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-       
+       // dd($request);
 
        // $x = $request->preMonth; //no need to insert into progress table, but first fetch it in create view
 
@@ -95,9 +95,9 @@ class EmployeeController extends Controller
 
       
 
-       $employee = Auth::user(); //Hardcoded Employee for the time being
+       // $employee = Auth::user(); //Super Admin cannot view the changes directly it will send him to his own employee.index page so employee code needed
 
-       // $employee = User::findOrFail($employee_id);
+       $employee = User::findOrFail($request->emp);
 
      
        return view('employee.index', compact('employee'));
@@ -106,26 +106,34 @@ class EmployeeController extends Controller
     }
 
 
-    public function finalSubmit($id){
+    public function finalSubmit(){
 
             // dd($id);
 
 
-             $employee_id = $id; //Hardcoded Employee for the time being
-
-             $employee = User::findOrFail($employee_id);
+             
 
              $status = new Status();
-
-             $status->user_id = $employee_id;
 
              $status->year_month = date('Y-m');
 
              $status->submitted = 1;
 
-             $status->save();
+             $employee = Auth::user();
 
-            return view('employee.index', compact('employee'));
+             $employee->statuses()->save($status);
+
+          //    $status = Status::updateOrCreate(      //In case anyone press /public/final more than one time-thats why url encapsulation needed
+ 
+          //   ['user_id' => $employee->id , 'year_month' => date('Y-m')], 
+
+          //   ['submitted' => 1]
+        
+          // );
+
+            
+
+            return redirect('employee');
 
 
 
@@ -203,3 +211,4 @@ class EmployeeController extends Controller
         //
     }
 }
+

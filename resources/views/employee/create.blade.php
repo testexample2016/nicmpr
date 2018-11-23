@@ -154,6 +154,10 @@
 	{!! Form::submit("Save Progress", ['class' => 'btn btn-info form-control']) !!}
 </div>
 
+<div class="form-group">
+  {!! Form::hidden('emp', $project->user_id, ['class' => 'form-control', 'required']) !!}
+</div>
+
 
 
 {!!Form::close() !!}
