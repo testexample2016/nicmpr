@@ -8,7 +8,6 @@ class Status extends Model
 {
     protected $fillable = [
 
-    	'user_id',
     	'year_month',
     	'submitted'
     ];
