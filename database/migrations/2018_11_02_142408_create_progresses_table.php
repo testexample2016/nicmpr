@@ -17,7 +17,7 @@ class CreateProgressesTable extends Migration
             $table->increments('id');
             $table->integer('parameter_id')->unsigned();
             $table->string('year_month');
-            $table->text('progress');
+            $table->text('progress')->nullable();
             $table->timestamps();
 
             $table->foreign('parameter_id')->references('id')->on('parameters');
