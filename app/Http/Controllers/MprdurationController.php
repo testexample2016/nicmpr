@@ -27,6 +27,17 @@ class MprdurationController extends Controller
 // dd($request->all());
 
         if ($request->filled('open_year_month') && !$request->filled('close_year_month')) {
+
+          $mprdurations = Mprduration::all();
+
+          foreach ($mprdurations as $mprduration) {
+           
+            if($mprduration->closed == 0){
+
+              return redirect('mprduration')->with('status', 'Please Close Another Month!');
+            }
+
+          }
     
         Mprduration::updateOrCreate(
 

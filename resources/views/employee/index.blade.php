@@ -47,12 +47,12 @@
 
 <td>Current Year:</td>
 
-<td> {{ Carbon\Carbon::now()->format('Y') }} </td>
+<td> {{date_format($date,"Y")}} </td>
 
 
 <td>Current Month</td>
 
-<td>  {{ Carbon\Carbon::now()->format('F') }} </td>
+<td> {{date_format($date,"F")}} </td>
 </tr>
 
 </tbody>
@@ -83,18 +83,20 @@
 
   @endphp
 
+
+
     @foreach($project->parameters as $parameter)
 
-
-  <tr>
+<tr>
+ 
 
 @if($counter==0)
+
+
     
 <td rowspan="{{$project->noOfParam}}">
-  @if($employee->statuses()->where([
-                    ['year_month', '=', '2018-11'],
-                    ['submitted', '=', 1]
-                ])->exists() && !Auth::user()->isAdmin)
+  @if(Gate::allows('finally-submitted') && !Auth::user()->isAdmin)
+
   {{  $project->projectname }}
   @else
 <a href="{{ action('EmployeeController@createProgress', [$project->id]) }}">
@@ -104,9 +106,11 @@
 </a>
 @endif
 
-@endif
+
 
 </td>
+
+@endif
 
 <td>{{ $parameter->parametername }}</td>
 
@@ -147,25 +151,17 @@ $counter++
 
 
 
-@if($employee->statuses()->where([
-                    ['year_month', '=', '2018-11'],
-                    ['submitted', '=', 1]
-                ])->doesntExist())
+@if (Gate::allows('final-submit') && !Auth::user()->isAdmin) 
+
+<a href="{{ action('EmployeeController@finalSubmit', [$employee->id]) }}" class="btn btn-info" role="button"> Final Submit </a>
 
 
-<div class="form-group">
-  <a href="{{ action('EmployeeController@finalSubmit') }}" class="btn btn-info" role="button"> Final Submit</a>
-</div>
 
 @endif
 
 @elseif($mprdurationstatus == 'NotGenerated')
 
 MPR for current month Not generated.
-
-@elseif($mprdurationstatus == 'Closed')
-
-MPR for current month Closed.
 
 @elseif($mprdurationstatus == 'wrong')
 

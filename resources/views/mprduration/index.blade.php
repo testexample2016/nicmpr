@@ -12,6 +12,12 @@
 
 @include('errors.error')
 
+@if (session('status'))
+    <div class="alert alert-success">
+        {{ session('status') }}
+    </div>
+@endif
+
 <h1>Open/Close MPR</h1>
 
 <hr/>

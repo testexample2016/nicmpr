@@ -25,25 +25,24 @@
      <tbody>
 
      	@foreach ($users as $user)
+      @if(!$user->isAdmin)
       <tr>
-       @if($user->statuses()->where([
-                    ['year_month', '=', '2018-11'],
-                    ['submitted', '=', 1]
-                ])->exists())
-        <td>
+        @if (Gate::forUser($user)->allows('finally-submitted')) 
+
+          <td>
           <a href="{{ action('AdminController@show', [$user->id]) }}"> {{ $user->name }} </a>
         </td>
         <td>{{ $user->designation }}</td>
         <td>Submitted <span>&#10004;</span></td>
 
-       @else
+   @else
        <td>{{ $user->name }}</td>
        <td>{{ $user->designation }}</td>
        <td>Not Submitted <span>&#10006;</span>  </td>
        @endif
       
       </tr>
-
+      @endif
       @endforeach
       
     </tbody>
