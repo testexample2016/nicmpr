@@ -40,11 +40,20 @@ class EmployeeController extends Controller
 
         $mprdurationstatus = $this->mprdurationcheck();
 
+        if($mprdurationstatus == 'Opened'){
+
        $date = $this->createdate();
 
+          }
 
+          else{
 
-         // dd($date);
+              $date = date_create(date('Y-m-d'));
+
+            // dd(date('Y-m-d'));
+          }
+
+         
       
         return view('employee.index', compact('employee','mprdurationstatus','date'));
 
