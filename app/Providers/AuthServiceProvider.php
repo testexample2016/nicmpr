@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Project;
 use App\Policies\ProjectPolicy;
+use App\Mprduration;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -30,9 +31,29 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-    //     Gate::define('update-project', function ($user, $post) {
-    //     return $user->isAdmin;
-    // });
+
+
+
+      Gate::define('final-submit', function ($user) {
+
+     $year_month = Mprduration::where('closed', 0)->value('year_month');
+       
+        return $user->statuses()->where([
+                    ['year_month', '=', $year_month],
+                    ['submitted', '=', 1]
+                ])->doesntExist();
+    });
+
+
+      Gate::define('finally-submitted', function ($user) {
+
+         $year_month = Mprduration::where('closed', 0)->value('year_month');
+       
+        return $user->statuses()->where([
+                    ['year_month', '=', $year_month],
+                    ['submitted', '=', 1]
+                ])->exists() ;
+    });
 
         //
     }

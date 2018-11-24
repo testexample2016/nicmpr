@@ -45,9 +45,11 @@ Route::resource('param', 'ParamController')->middleware('admin');;
 
 Route::resource('employee', 'EmployeeController');
 
-Route::get('final', 'EmployeeController@finalSubmit')->middleware('auth');
+Route::get('final/{id}', 'EmployeeController@finalSubmit');
 
 Route::get('progress/{id}', 'EmployeeController@createProgress');
+
+Route::get('adminindex/{id}', 'EmployeeController@adminindex');
 
 Route::get('mprduration', 'MprdurationController@index');
 
