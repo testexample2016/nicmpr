@@ -34,30 +34,40 @@ class MprdurationController extends Controller
            
             if($mprduration->closed == 0){
 
-              return redirect('mprduration')->with('status', 'Please Close Another Month!');
+              return redirect('mprduration')->with('status', 'Please Close Opened Month!');
             }
 
           }
     
         Mprduration::updateOrCreate(
 
-            ['year_month' => $request->input('open_year_month')],
+            ['year_month' => $request->input('open_year_month').'-01'], 
 
             ['closed' => 0]
-        );
+        ); // -01 added because it is saved in DB as Y-m-01 format due to Carbon usage
     
        }
 
 
      elseif ($request->filled('close_year_month')  && !$request->filled('open_year_month')) {
     
-        Mprduration::updateOrCreate(
+        // Mprduration::updateOrCreate(
 
-            ['year_month' => $request->input('close_year_month')],
+        //     ['year_month' => $request->input('close_year_month')],
 
-            ['closed' => 1]
-        );
-        
+        //     ['closed' => 1]
+        // );
+
+      $mprduration = Mprduration::where('year_month',$request->input('close_year_month').'-01')->firstOrFail();  // -01 added because it is saved in DB as Y-m-01 format due to Carbon usage
+
+      $mprduration->closed = 1;
+
+      $mprduration->save();
+
+      // Mprduration::where('year_month',$request->input('close_year_month'))
+      //            ->update(['closed' => 1]);
+
+   
        }
 
        // else {

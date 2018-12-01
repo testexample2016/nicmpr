@@ -47,12 +47,12 @@
 
 <td>Current Year:</td>
 
-<td> {{date_format($date,"Y")}} </td>
+<td> {{ $date->year }} </td>
 
 
 <td>Current Month</td>
 
-<td> {{date_format($date,"F")}} </td>
+<td> {{ $date->format('F') }} </td>
 </tr>
 
 </tbody>
@@ -117,8 +117,8 @@
 <td>work1</td>
 
 <td>
- @if($parameter->progresses()->where('year_month', '2018-11')->exists())
-{{ $parameter->progresses()->where('year_month', '2018-11')->value('progress')}}
+ @if($parameter->progresses()->where('year_month', $date)->exists())
+{{ $parameter->progresses()->where('year_month', $date)->value('progress')}}
 @endif
 </td>
 
@@ -151,7 +151,7 @@ $counter++
 
 
 
-@if (Gate::allows('final-submit') && !Auth::user()->isAdmin) 
+@if (Gate::allows('final-submit') && !Auth::user()->isAdmin && $employee->projects->isNotEmpty()) 
 
 <a href="{{ action('EmployeeController@finalSubmit', [$employee->id]) }}" class="btn btn-info" role="button"> Final Submit </a>
 
@@ -161,7 +161,7 @@ $counter++
 
 @elseif($mprdurationstatus == 'NotGenerated')
 
-MPR for current month Not generated.
+MPR for current month Not generated or Closed.
 
 @elseif($mprdurationstatus == 'wrong')
 

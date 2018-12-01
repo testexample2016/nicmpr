@@ -15,7 +15,8 @@ class CreateMprdurationsTable extends Migration
     {
         Schema::create('mprdurations', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('year_month',191)->unique();
+            // $table->string('year_month',191)->unique();
+            $table->date('year_month',191)->unique();
             $table->boolean('closed')->default(0);
             $table->boolean('mprgenerated')->default(0);
             $table->timestamps();

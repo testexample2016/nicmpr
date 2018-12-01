@@ -9,6 +9,8 @@
 
 @section('content')
 
+@if($mprdurationstatus == 'Opened')
+
 <h2>MPR Status</h2>
 
 <table class="table table-hover">
@@ -50,7 +52,7 @@
 
 </table>
 
-
+@endif
 
 
 @endsection
