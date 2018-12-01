@@ -84,12 +84,12 @@
 
 <td>Current Year:</td>
 
-<td> {{ Carbon\Carbon::now()->format('Y') }} </td>
+<td> {{ $date->year }} </td>
 
 
 <td>Current Month</td>
 
-<td>  {{ Carbon\Carbon::now()->format('F') }} </td>
+<td>  {{ $date->format('F') }} </td>
 </tr>
 
 
@@ -130,7 +130,7 @@
  <div class="form-group">
   <textarea class="form-control" rows="5" name="repMonth[{{$parameter->id}}]">
 @foreach($parameter->progresses as $progress)
-@if($progress->year_month == '2018-11')
+@if($progress->year_month == $date)
 {{ $progress->progress}}
 @break
 @endif

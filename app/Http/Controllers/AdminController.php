@@ -25,7 +25,9 @@ class AdminController extends Controller
 
         $users = User::all();
 
-        return view('admin.dashboard', compact('users'));
+        $mprdurationstatus = $this->mprdurationcheck();
+
+        return view('admin.dashboard', compact('users','mprdurationstatus'));
     }
 
 
@@ -46,9 +48,21 @@ class AdminController extends Controller
 
         $mprdurationstatus = $this->mprdurationcheck();
 
-        $date = $this->createdate();
+        // $date = $this->createdate();
 
          // dd($date);
+
+        if($mprdurationstatus == 'Opened'){
+
+            $date = Mprduration::where('closed', 0)->value('year_month');
+        }
+
+        else{
+
+              $date = Carbon::now();
+
+
+        }
       
         return view('employee.index', compact('employee','mprdurationstatus','date'));
   
@@ -95,7 +109,7 @@ class AdminController extends Controller
     {
          
 
-         $mprduration = Mprduration::where('year_month','=' ,date('Y-m'))->first();
+          $mprduration = Mprduration::where('closed','=' ,0)->first();
 
         if($mprduration == null)
 
