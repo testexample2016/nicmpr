@@ -16,7 +16,8 @@ class CreateProgressesTable extends Migration
         Schema::create('progresses', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('parameter_id')->unsigned();
-            $table->string('year_month');
+            // $table->string('year_month');
+            $table->date('year_month');
             $table->text('progress')->nullable();
             $table->timestamps();
 

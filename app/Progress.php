@@ -26,10 +26,10 @@ class Progress extends Model
 
    protected $dates = ['year_month'];
 
-public function setYearMonthAttribute($year_month) {
+// public function setYearMonthAttribute($year_month) {
 
-  $this->attributes['year_month'] = Carbon::createFromFormat('Y-m-d',$year_month.'-01');
+//   $this->attributes['year_month'] = Carbon::createFromFormat('Y-m-d',$year_month);
 
-}
+// }
 
 }
