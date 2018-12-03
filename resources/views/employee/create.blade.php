@@ -141,7 +141,11 @@
 
 <td>
  <div class="form-group">
-  <textarea class="form-control" rows="5" name="cumuInspection[{{$parameter->id}}]"></textarea>
+  <textarea class="form-control" rows="5" name="cumuInspection[{{$parameter->id}}]">
+  @if($parameter->cumulative)
+{{$parameter->cumulative->cumulative}}
+@endif
+  </textarea>
 </div>
 </td>
 </tr>
