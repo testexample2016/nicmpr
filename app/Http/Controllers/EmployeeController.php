@@ -40,6 +40,7 @@ class EmployeeController extends Controller
 
         $mprdurationstatus = $this->mprdurationcheck();
 
+
        // $date = $this->createdate();
 
         if($mprdurationstatus == 'Opened'){
@@ -53,6 +54,7 @@ class EmployeeController extends Controller
 
 
         }
+
       
         return view('employee.index', compact('employee','mprdurationstatus','date'));
 
