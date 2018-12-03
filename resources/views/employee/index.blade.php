@@ -114,7 +114,13 @@
 
 <td>{{ $parameter->parametername }}</td>
 
-<td>work1</td>
+<td>
+  @if($parameter->progresses()->where('year_month', $date->copy()->subMonth())->exists())
+{{ $parameter->progresses()->where('year_month', $date->copy()->subMonth())->value('progress')}}
+@else
+NILL
+@endif
+</td>
 
 <td>
  @if($parameter->progresses()->where('year_month', $date)->exists())
@@ -122,7 +128,10 @@
 @endif
 </td>
 
-<td>work3</td>
+<td>@if($parameter->cumulative)
+{{$parameter->cumulative->cumulative}}
+@endif
+</td>
 
 @if($counter==0)
     

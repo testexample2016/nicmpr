@@ -12,6 +12,8 @@ use App\Status;
 
 use App\Mprduration;
 
+use App\Cumulative;
+
 use Carbon\Carbon;
 
 use Illuminate\Support\Facades\Auth;
@@ -40,6 +42,7 @@ class EmployeeController extends Controller
 
         $mprdurationstatus = $this->mprdurationcheck();
 
+
        // $date = $this->createdate();
 
         if($mprdurationstatus == 'Opened'){
@@ -53,6 +56,7 @@ class EmployeeController extends Controller
 
 
         }
+
       
         return view('employee.index', compact('employee','mprdurationstatus','date'));
 
@@ -196,9 +200,15 @@ class EmployeeController extends Controller
 
     public function saveProgress(Request $request){
 
+        // dd($request->cumuInspection);
+
         $y = $request->repMonth;
 
         // dd($y);
+
+        $z = $request->cumuInspection;
+
+        // dd($z);
 
          foreach($y as $parameter_id=>$progress_value) 
 
@@ -211,6 +221,22 @@ class EmployeeController extends Controller
                  ['parameter_id' => $parameter_id, 'year_month' => Mprduration::where('closed', 0)->value('year_month')],
 
                      ['progress' => $progress_value]
+
+                 );
+
+       }
+
+       foreach($z as $parameter_id=>$cumulative_value) 
+
+       {
+            $cumulative = new Cumulative();
+
+                      
+            $cumulative = Cumulative::updateOrCreate(
+
+                 ['parameter_id' => $parameter_id],
+
+                 ['cumulative' => $cumulative_value]
 
                  );
 
