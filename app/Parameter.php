@@ -24,4 +24,9 @@ class Parameter extends Model
     {
         return $this->hasMany('App\Progress');
     }
+
+    public function cumulative()
+    {
+        return $this->hasOne('App\Cumulative');
+    }
 }
