@@ -14,6 +14,8 @@ use App\Mprduration;
 
 use App\Cumulative;
 
+use App\Newproject;
+
 use Carbon\Carbon;
 
 use Illuminate\Support\Facades\Auth;
@@ -117,10 +119,6 @@ class EmployeeController extends Controller
 
         // dd(date('Y-m'));
 
-        
-
-        // $z = $request->cumuInspection; //create a cumuInspection that has one to one relationship with parameter table there insert it, but first fetch it in create view
-
         // dd($z);
 
         // dd($request->submitbutton);
@@ -210,6 +208,11 @@ class EmployeeController extends Controller
 
         // dd($z);
 
+        // dd($request->schemename);
+
+        // dd($request->highlight);
+
+
          foreach($y as $parameter_id=>$progress_value) 
 
        {
@@ -242,6 +245,8 @@ class EmployeeController extends Controller
 
        }
 
+
+     
        
        return;
 
@@ -276,14 +281,114 @@ class EmployeeController extends Controller
 
         $mprdurationstatus = $this->mprdurationcheck();
 
-        $date = $this->createdate();
+        // $date = $this->createdate();
 
-       
+        if($mprdurationstatus == 'Opened'){
+
+            $date = Mprduration::where('closed', 0)->value('year_month');
+        }
+
+        else{
+
+              $date = Carbon::now();
+
+
+        }
 
       
 
          return view('employee.index', compact('employee','mprdurationstatus','date'));
     }
+
+    public function createOptional($id)
+    {
+        $employee = User::findOrFail($id);
+         
+        $mprdurationstatus = $this->mprdurationcheck();
+
+         if($mprdurationstatus == 'Opened'){
+
+            $date = Mprduration::where('closed', 0)->value('year_month');
+        }
+
+        else{
+
+              $date = Carbon::now();
+
+
+        }
+
+        return view('employee.optional', compact('employee','date'));
+
+    }
+
+
+    public function storeOptional(Request $request)
+    {
+
+        //code duplication remove from here
+
+     if ($request->has('schemename_central') && $request->has('highlight_central'))
+
+       {
+    
+
+     $newproject = Newproject::updateOrCreate(
+
+      ['user_id' => $request->emp, 'year_month' => Mprduration::where('closed', 0)->value('year_month'),  'central_state' => 0      ],
+
+       ['schemename' => $request->schemename_central, 'highlight' => $request->highlight_central
+
+     
+       ]
+
+
+     );
+
+ }
+
+  if ($request->has('schemename_state') && $request->has('highlight_state'))
+
+       {
+    
+
+     $newproject = Newproject::updateOrCreate(
+
+      ['user_id' => $request->emp, 'year_month' => Mprduration::where('closed', 0)->value('year_month'),  'central_state' => 1      ],
+
+       ['schemename' => $request->schemename_state, 'highlight' => $request->highlight_state
+
+     
+       ]
+
+
+     );
+
+ }
+
+      $employee = User::findOrFail($request->emp);
+
+       $mprdurationstatus = $this->mprdurationcheck();
+
+       // $date = $this->createdate();
+
+       if($mprdurationstatus == 'Opened'){
+
+            $date = Mprduration::where('closed', 0)->value('year_month');
+        }
+
+        else{
+
+              $date = Carbon::now();
+
+
+        }
+       
+
+         return view('employee.index', compact('employee','mprdurationstatus','date'));
+
+    }
+
 
     public function splityearmonth()
     {

@@ -10,7 +10,8 @@ class project extends Model
 
     	'user_id',
     	'projectname',
-    	'noOfParam'
+    	'noOfParam',
+        'central_state'
     	
     ];
 
