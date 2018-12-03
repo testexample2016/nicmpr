@@ -169,6 +169,9 @@ class ProjectController extends Controller
         $project->noOfParam = $request->input('noOfParam');
 
 
+        $project->central_state = $request->input('central_state');
+
+
         $project->save();
 
 

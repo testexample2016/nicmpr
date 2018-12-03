@@ -45,6 +45,10 @@ Route::resource('param', 'ParamController')->middleware('admin');;
 
 Route::resource('employee', 'EmployeeController');
 
+Route::get('createOptional/{id}', 'EmployeeController@createOptional');
+
+Route::post('storeOptional', 'EmployeeController@storeOptional');
+
 Route::get('final/{id}', 'EmployeeController@finalSubmit');
 
 Route::get('progress/{id}', 'EmployeeController@createProgress');

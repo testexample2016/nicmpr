@@ -62,6 +62,21 @@
 
 <tr class="table-info">
 
+  <td>Central/State Project:</td>
+
+  <td>
+    @if($project->central_state)
+    State Project
+    @else
+    Central Project
+    @endif
+   </td>
+
+</tr>
+
+
+<tr class="table-info">
+
 <td><h4>Parameters:</h4></td>
 
 <td>

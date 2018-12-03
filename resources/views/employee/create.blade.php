@@ -155,6 +155,8 @@
 </tbody>
 </table>
 
+
+
 <div class="form-group">
 	{!! Form::submit("Save Progress", ['class' => 'btn btn-info form-control']) !!}
 </div>
