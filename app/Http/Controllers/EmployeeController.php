@@ -40,20 +40,21 @@ class EmployeeController extends Controller
 
         $mprdurationstatus = $this->mprdurationcheck();
 
+
+       // $date = $this->createdate();
+
         if($mprdurationstatus == 'Opened'){
 
-       $date = $this->createdate();
+            $date = Mprduration::where('closed', 0)->value('year_month');
+        }
 
-          }
+        else{
 
-          else{
+              $date = Carbon::now();
 
-              $date = date_create(date('Y-m-d'));
 
-            // dd(date('Y-m-d'));
-          }
+        }
 
-         
       
         return view('employee.index', compact('employee','mprdurationstatus','date'));
 
@@ -72,12 +73,28 @@ class EmployeeController extends Controller
 
     public function createProgress($id)
     {
+
+         $mprdurationstatus = $this->mprdurationcheck();
+
+       // $date = $this->createdate();
+
+        if($mprdurationstatus == 'Opened'){
+
+            $date = Mprduration::where('closed', 0)->value('year_month');
+        }
+
+        else{
+
+              $date = Carbon::now();
+
+
+        }
         
         
 
         $project = Project::findOrFail($id);
 
-        return view('employee.create', compact('project'));
+        return view('employee.create', compact('project','date'));
 
 
     }
@@ -117,7 +134,19 @@ class EmployeeController extends Controller
 
        $mprdurationstatus = $this->mprdurationcheck();
 
-       $date = $this->createdate();
+       // $date = $this->createdate();
+
+       if($mprdurationstatus == 'Opened'){
+
+            $date = Mprduration::where('closed', 0)->value('year_month');
+        }
+
+        else{
+
+              $date = Carbon::now();
+
+
+        }
        
 
          return view('employee.index', compact('employee','mprdurationstatus','date'));
@@ -133,6 +162,8 @@ class EmployeeController extends Controller
              $status = new Status();
 
              $year_month = Mprduration::where('closed', 0)->value('year_month');
+
+             // dd($year_month);
 
 
              $status->year_month = $year_month;
@@ -187,6 +218,7 @@ class EmployeeController extends Controller
 
        }
 
+       
        return;
 
     }

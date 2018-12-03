@@ -67,7 +67,7 @@ Close MPR for (month and year): <input type="month" name="close_year_month">
 
      	@foreach ($mprdurations as $mprduration)
       <tr>
-        <td>{{ $mprduration->year_month }} </td>
+        <td>{{ $mprduration->year_month->year }}-{{ $mprduration->year_month->format('F') }}</td>
         <td>
           @if($mprduration->closed)
           Closed
