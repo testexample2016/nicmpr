@@ -166,6 +166,10 @@ $counter++
 <a href="{{ action('TrainingController@createTraining', [$employee->id]) }}">Optional Training Entry</a> </br>
 
 <a href="{{ action('AwardController@createAward', [$employee->id]) }}">Optional Award Entry</a> </br>
+
+<a href="{{ action('InitiativeController@createInitiative', [$employee->id]) }}">Optional Initiative Entry</a> </br>
+
+<a href="{{ action('ReviewController@createReview', [$employee->id]) }}">Optional Review Entry</a> </br>
  
 
 @if (Gate::allows('final-submit') && !Auth::user()->isAdmin && $employee->projects->isNotEmpty()) 

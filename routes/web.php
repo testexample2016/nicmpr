@@ -61,6 +61,14 @@ Route::get('createAward/{id}', 'AwardController@createAward');
 
 Route::post('storeAward', 'AwardController@storeAward');
 
+Route::get('createInitiative/{id}', 'InitiativeController@createInitiative');
+
+Route::post('storeInitiative', 'InitiativeController@storeInitiative');
+
+Route::get('createReview/{id}', 'ReviewController@createReview');
+
+Route::post('storeReview', 'ReviewController@storeReview');
+
 Route::get('final/{id}', 'EmployeeController@finalSubmit');
 
 Route::get('progress/{id}', 'EmployeeController@createProgress');
