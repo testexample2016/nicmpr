@@ -14,12 +14,16 @@ use App\Mprduration;
 
 use App\Inauguration;
 
+// use Illuminate\Support\Facades\Gate;
+
+
 class OptionalController extends Controller
 {
     
 
     public function createOptional($id)
     {
+
         $employee = User::findOrFail($id);
          
         $date = createdate();

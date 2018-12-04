@@ -55,6 +55,22 @@ class AuthServiceProvider extends ServiceProvider
                 ])->exists() ;
     });
 
-        //
+    
+    Gate::before(function ($user, $ability) {
+    
+    if ($user->isAdmin) {
+    
+        return true;
+      }
+     
+     });
+
+        Gate::define('update-progress', function ($user, $project) {
+        
+        return $user->id == $project->user_id;
+
+    });
+
+
     }
 }

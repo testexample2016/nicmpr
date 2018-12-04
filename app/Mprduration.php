@@ -23,14 +23,15 @@ public function setYearMonthAttribute($year_month) {
 
 }
 
-// public function getYearMonthAttribute($year_month) {
+public function scopeAlreadyClosed($query, $year_month)
+    {
+        return $query->where([
+       
+        ['year_month','=',$year_month],
 
-// 	 return ucfirst($value);
+        ['closed','=',1]
 
-// 	$this->attributes['year_month'] = Carbon::createFromFormat('Y-m-d',$year_month.'-01');
-
-// }
-
-
+      ]);
+    }
 
 }
