@@ -48,23 +48,9 @@ class AdminController extends Controller
 
         $mprdurationstatus = $this->mprdurationcheck();
 
-        // $date = $this->createdate();
+        $date = $this->createdate();
 
-         // dd($date);
-
-        if($mprdurationstatus == 'Opened'){
-
-            $date = Mprduration::where('closed', 0)->value('year_month');
-        }
-
-        else{
-
-              $date = Carbon::now();
-
-
-        }
-      
-        return view('employee.index', compact('employee','mprdurationstatus','date'));
+       return view('employee.index', compact('employee','mprdurationstatus','date'));
   
     }
 
@@ -147,13 +133,20 @@ class AdminController extends Controller
 
     public function createdate(){
 
-         $ym = $this->splityearmonth();
+        $mprdurationstatus = $this->mprdurationcheck();
 
-        $year = $ym[0];
+         if($mprdurationstatus == 'Opened'){
 
-        $month = $ym[1];
+            $date = Mprduration::where('closed', 0)->value('year_month');
+        }
 
-        $date = date_create($year.'-'.$month.'-'."1");
+        else{
+
+              $date = Carbon::now();
+
+
+        }
+       
 
         return $date;
     }
