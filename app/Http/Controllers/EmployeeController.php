@@ -45,19 +45,7 @@ class EmployeeController extends Controller
         $mprdurationstatus = $this->mprdurationcheck();
 
 
-       // $date = $this->createdate();
-
-        if($mprdurationstatus == 'Opened'){
-
-            $date = Mprduration::where('closed', 0)->value('year_month');
-        }
-
-        else{
-
-              $date = Carbon::now();
-
-
-        }
+       $date = createdate();
 
       
         return view('employee.index', compact('employee','mprdurationstatus','date'));
@@ -78,22 +66,9 @@ class EmployeeController extends Controller
     public function createProgress($id)
     {
 
-         $mprdurationstatus = $this->mprdurationcheck();
+         $mprdurationstatus = mprdurationcheck();
 
-       // $date = $this->createdate();
-
-        if($mprdurationstatus == 'Opened'){
-
-            $date = Mprduration::where('closed', 0)->value('year_month');
-        }
-
-        else{
-
-              $date = Carbon::now();
-
-
-        }
-        
+       $date = createdate();        
         
 
         $project = Project::findOrFail($id);
@@ -111,43 +86,18 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-       // dd($request);
-
-       // $x = $request->preMonth; //no need to insert into progress table, but first fetch it in create view
-
-       // dd($x);
-
-        // dd(date('Y-m'));
-
-        // dd($z);
-
-        // dd($request->submitbutton);
-
-  
+         
        $this->saveProgress($request);
 
-      
-
-       // $employee = Auth::user(); //Super Admin cannot view the changes directly it will send him to his own employee.index page so employee code needed
+    // $employee = Auth::user(); //Super Admin cannot view the changes directly it will send him to his own employee.index page so employee code needed
 
        $employee = User::findOrFail($request->emp);
 
-       $mprdurationstatus = $this->mprdurationcheck();
+       $mprdurationstatus = mprdurationcheck();
 
-       // $date = $this->createdate();
+       $date = createdate();
 
-       if($mprdurationstatus == 'Opened'){
-
-            $date = Mprduration::where('closed', 0)->value('year_month');
-        }
-
-        else{
-
-              $date = Carbon::now();
-
-
-        }
-       
+      
 
          return view('employee.index', compact('employee','mprdurationstatus','date'));
 
@@ -174,14 +124,6 @@ class EmployeeController extends Controller
 
              $employee->statuses()->save($status);
 
-          //    $status = Status::updateOrCreate(      //In case anyone press /public/final more than one time-thats why url encapsulation needed
- 
-          //   ['user_id' => $employee->id , 'year_month' => date('Y-m')], 
-
-          //   ['submitted' => 1]
-        
-          // );
-
              if(Auth::user()->isAdmin){
 
                 return redirect()->action('EmployeeController@adminindex', ['id' => $id]);
@@ -198,19 +140,13 @@ class EmployeeController extends Controller
 
     public function saveProgress(Request $request){
 
-        // dd($request->cumuInspection);
+     
 
         $y = $request->repMonth;
 
-        // dd($y);
+      
 
         $z = $request->cumuInspection;
-
-        // dd($z);
-
-        // dd($request->schemename);
-
-        // dd($request->highlight);
 
 
          foreach($y as $parameter_id=>$progress_value) 
@@ -245,10 +181,7 @@ class EmployeeController extends Controller
 
        }
 
-
-     
-       
-       return;
+      return;
 
     }
 
@@ -279,48 +212,15 @@ class EmployeeController extends Controller
     {
          $employee = User::findOrFail($id);
 
-        $mprdurationstatus = $this->mprdurationcheck();
+        $mprdurationstatus = mprdurationcheck();
 
-        // $date = $this->createdate();
-
-        if($mprdurationstatus == 'Opened'){
-
-            $date = Mprduration::where('closed', 0)->value('year_month');
-        }
-
-        else{
-
-              $date = Carbon::now();
-
-
-        }
-
+        $date = createdate();
       
 
          return view('employee.index', compact('employee','mprdurationstatus','date'));
     }
 
-    public function createOptional($id)
-    {
-        $employee = User::findOrFail($id);
-         
-        $mprdurationstatus = $this->mprdurationcheck();
-
-         if($mprdurationstatus == 'Opened'){
-
-            $date = Mprduration::where('closed', 0)->value('year_month');
-        }
-
-        else{
-
-              $date = Carbon::now();
-
-
-        }
-
-        return view('employee.optional', compact('employee','date'));
-
-    }
+    
 
 
     public function storeOptional(Request $request)
@@ -328,12 +228,13 @@ class EmployeeController extends Controller
 
         //code duplication remove from here
 
+
      if ($request->has('schemename_central') && $request->has('highlight_central'))
 
        {
     
 
-     $newproject = Newproject::updateOrCreate(
+     $newproject_central = Newproject::updateOrCreate(
 
       ['user_id' => $request->emp, 'year_month' => Mprduration::where('closed', 0)->value('year_month'),  'central_state' => 0      ],
 
@@ -352,7 +253,7 @@ class EmployeeController extends Controller
        {
     
 
-     $newproject = Newproject::updateOrCreate(
+     $newproject_state = Newproject::updateOrCreate(
 
       ['user_id' => $request->emp, 'year_month' => Mprduration::where('closed', 0)->value('year_month'),  'central_state' => 1      ],
 
@@ -368,11 +269,22 @@ class EmployeeController extends Controller
 
       $employee = User::findOrFail($request->emp);
 
-       $mprdurationstatus = $this->mprdurationcheck();
+       $mprdurationstatus = mprdurationcheck();
 
-       // $date = $this->createdate();
+       $date = createdate();
 
-       if($mprdurationstatus == 'Opened'){
+      
+
+         return view('employee.index', compact('employee','mprdurationstatus','date'));
+
+    }
+
+
+    public function createdate(){
+
+          $mprdurationstatus = mprdurationcheck();
+
+         if($mprdurationstatus == 'Opened'){
 
             $date = Mprduration::where('closed', 0)->value('year_month');
         }
@@ -384,30 +296,6 @@ class EmployeeController extends Controller
 
         }
        
-
-         return view('employee.index', compact('employee','mprdurationstatus','date'));
-
-    }
-
-
-    public function splityearmonth()
-    {
-        $year_month = Mprduration::where('closed', 0)->value('year_month');
-
-        $ym = explode("-", $year_month);
-
-        return $ym;
-    }
-
-    public function createdate(){
-
-         $ym = $this->splityearmonth();
-
-        $year = $ym[0];
-
-        $month = $ym[1];
-
-        $date = date_create($year.'-'.$month.'-'."1");
 
         return $date;
     }
