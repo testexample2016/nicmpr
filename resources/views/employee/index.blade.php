@@ -84,7 +84,6 @@
   @endphp
 
 
-
     @foreach($project->parameters as $parameter)
 
 <tr>

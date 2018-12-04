@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Gate;
+
 use Illuminate\Http\Request;
 
 use App\Mprduration;
+
+use App\User;
 
 class MprdurationController extends Controller
 {
@@ -45,38 +49,41 @@ class MprdurationController extends Controller
 
             ['closed' => 0]
         ); // -01 added because it is saved in DB as Y-m-01 format due to Carbon usage
+
+        return redirect('mprduration');
     
        }
 
 
-     elseif ($request->filled('close_year_month')  && !$request->filled('open_year_month')) {
+
+    elseif ($request->filled('close_year_month')  && !$request->filled('open_year_month')) {
+
+      if(!Mprduration::alreadyClosed($request->input('close_year_month').'-01')->exists()) {
+
+      $users = User::where('isAdmin', '!=', 1)->get();
+
+      foreach ($users as $user) {
+        
+        if (Gate::forUser($user)->allows('final-submit')) {
+
+
+          return redirect('mprduration')->with('status', 'Please Close All MPR!');
+
+        }
+
+      }
     
-        // Mprduration::updateOrCreate(
-
-        //     ['year_month' => $request->input('close_year_month')],
-
-        //     ['closed' => 1]
-        // );
-
+    
       $mprduration = Mprduration::where('year_month',$request->input('close_year_month').'-01')->firstOrFail();  // -01 added because it is saved in DB as Y-m-01 format due to Carbon usage
 
       $mprduration->closed = 1;
 
       $mprduration->save();
-
-      // Mprduration::where('year_month',$request->input('close_year_month'))
-      //            ->update(['closed' => 1]);
-
-   
-       }
-
-       // else {
-
-       //  abort(403);
-
-       // }
-       
-   	 return redirect('mprduration');
-  
     }
+
+      return redirect('mprduration');
+
+    }
+}
+
 }

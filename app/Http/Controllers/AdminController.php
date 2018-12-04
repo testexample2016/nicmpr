@@ -10,6 +10,8 @@ use App\Http\Requests\UserCreateRequest;
 
 use App\Http\Requests\UserUpdateRequest;
 
+use Illuminate\Support\Facades\Gate;
+
 
 
 class AdminController extends Controller
@@ -46,11 +48,19 @@ class AdminController extends Controller
 
     	$employee = User::findOrFail($id);
 
+        if (Gate::forUser($employee)->allows('finally-submitted')) {
+
         $mprdurationstatus = mprdurationcheck();
 
         $date = createdate();
 
        return view('employee.index', compact('employee','mprdurationstatus','date'));
+
+   }
+   else{
+
+    return back();
+   }
   
     }
 
