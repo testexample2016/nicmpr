@@ -10,12 +10,11 @@ use Carbon\Carbon;
 
 use App\Mprduration;
 
-use App\Award;
+use App\Review;
 
-
-class AwardController extends Controller
+class ReviewController extends Controller
 {
-    public function createAward($id)
+   public function createReview($id)
     {
         $employee = User::findOrFail($id);
          
@@ -25,7 +24,7 @@ class AwardController extends Controller
 
     }
 
-     public function storeAward(Request $request)
+     public function storeReview(Request $request)
     {
 
 
@@ -58,8 +57,5 @@ class AwardController extends Controller
          return view('employee.index', compact('employee','mprdurationstatus','date'));
 
     }
-
-
-
 
 }
