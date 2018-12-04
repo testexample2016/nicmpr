@@ -14,7 +14,7 @@
 
 <hr/>
 
-{!! Form::open(['action' => 'EmployeeController@storeOptional']) !!}
+{!! Form::open(['action' => 'OptionalController@storeOptional']) !!}
 
 <!-- New Central Projects -->
 
@@ -38,7 +38,10 @@
  ['year_month', '=',$date],
  ['central_state', '=',0]
  ])->exists())
-{{$employee->newprojects()->where('year_month', $date)->value('schemename')}}
+{{$employee->newprojects()->where([
+ ['year_month', '=',$date],
+ ['central_state', '=',0]
+ ])->value('schemename')}}
 @endif
   </textarea>
 </div>  
@@ -51,7 +54,10 @@
  ['year_month', '=',$date],
  ['central_state', '=',0]
  ])->exists())
-{{$employee->newprojects()->where('year_month', $date)->value('highlight')}}
+{{$employee->newprojects()->where([
+ ['year_month', '=',$date],
+ ['central_state', '=',0]
+ ])->value('highlight')}}
 @endif
   </textarea>
 </div>  
@@ -82,7 +88,10 @@
  ['year_month', '=',$date],
  ['central_state', '=',1]
  ])->exists())
-{{$employee->newprojects()->where('year_month', $date)->value('schemename')}}
+{{$employee->newprojects()->where([
+ ['year_month', '=',$date],
+ ['central_state', '=',1]
+ ])->value('schemename')}}
 @endif
   </textarea>
 </div>  
@@ -95,7 +104,10 @@
  ['year_month', '=',$date],
  ['central_state', '=',1]
  ])->exists())
-{{$employee->newprojects()->where('year_month', $date)->value('highlight')}}
+{{$employee->newprojects()->where([
+ ['year_month', '=',$date],
+ ['central_state', '=',1]
+ ])->value('highlight')}}
 @endif
   </textarea>
 </div>  
@@ -106,9 +118,13 @@
 
 </table>
 
+@if (Gate::allows('final-submit') &&  $employee->projects->isNotEmpty()) 
+
 <div class="form-group">
 	{!! Form::submit("Save Progress", ['class' => 'btn btn-info form-control']) !!}
 </div>
+
+@endif
 
 <div class="form-group">
   {!! Form::hidden('emp', $employee->id, ['class' => 'form-control', 'required']) !!}

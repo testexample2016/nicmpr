@@ -45,9 +45,29 @@ Route::resource('param', 'ParamController')->middleware('admin');;
 
 Route::resource('employee', 'EmployeeController');
 
-Route::get('createOptional/{id}', 'EmployeeController@createOptional');
+Route::get('createOptional/{id}', 'OptionalController@createOptional');
 
-Route::post('storeOptional', 'EmployeeController@storeOptional');
+Route::post('storeOptional', 'OptionalController@storeOptional');
+
+Route::get('createInauguration/{id}', 'InaugurationController@createInauguration');
+
+Route::post('storeInauguration', 'InaugurationController@storeInauguration');
+
+Route::get('createTraining/{id}', 'TrainingController@createTraining');
+
+Route::post('storeTraining', 'TrainingController@storeTraining');
+
+Route::get('createAward/{id}', 'AwardController@createAward');
+
+Route::post('storeAward', 'AwardController@storeAward');
+
+Route::get('createInitiative/{id}', 'InitiativeController@createInitiative');
+
+Route::post('storeInitiative', 'InitiativeController@storeInitiative');
+
+Route::get('createReview/{id}', 'ReviewController@createReview');
+
+Route::post('storeReview', 'ReviewController@storeReview');
 
 Route::get('final/{id}', 'EmployeeController@finalSubmit');
 
