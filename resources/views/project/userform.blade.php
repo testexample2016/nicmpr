@@ -4,6 +4,15 @@
 </div>
 
 <div class="form-group">
+ {!! Form::label('central_state', 'Central Project:') !!}
+  {{ Form::radio('central_state', 0 , true) }}
+</div>
+  <div class="form-group">
+  {!! Form::label('central_state', 'State Project:') !!}
+  {{ Form::radio('central_state', 1 , false) }}
+</div>
+
+<div class="form-group">
 	{!! Form::label('noOfParam', 'No of Parameter:') !!}
 	{!! Form::text('noOfParam', null, ['class' => 'form-control', 'required']) !!}
 </div>

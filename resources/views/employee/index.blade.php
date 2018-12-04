@@ -141,6 +141,7 @@ NILL
 
  @endif
 
+</td>
 
 </tr>
 
@@ -158,7 +159,8 @@ $counter++
 
 </table>
 
-
+<a href="{{ action('EmployeeController@createOptional', [$employee->id]) }}">Optional Entry</a> </br>
+ 
 
 @if (Gate::allows('final-submit') && !Auth::user()->isAdmin && $employee->projects->isNotEmpty()) 
 
