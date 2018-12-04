@@ -25,7 +25,7 @@ class AdminController extends Controller
 
         $users = User::all();
 
-        $mprdurationstatus = $this->mprdurationcheck();
+        $mprdurationstatus = mprdurationcheck();
 
         return view('admin.dashboard', compact('users','mprdurationstatus'));
     }
@@ -46,9 +46,9 @@ class AdminController extends Controller
 
     	$employee = User::findOrFail($id);
 
-        $mprdurationstatus = $this->mprdurationcheck();
+        $mprdurationstatus = mprdurationcheck();
 
-        $date = $this->createdate();
+        $date = createdate();
 
        return view('employee.index', compact('employee','mprdurationstatus','date'));
   
@@ -90,68 +90,5 @@ class AdminController extends Controller
     	return redirect('admin');
   
     }
-
-    public function mprdurationcheck()
-    {
-         
-
-          $mprduration = Mprduration::where('closed','=' ,0)->first();
-
-        if($mprduration == null)
-
-        {
-            $mprdurationstatus = 'NotGenerated';
-        }
-
-        elseif($mprduration->closed == 0)
-        {
-           $mprdurationstatus = 'Opened'; 
-        }
-
-        elseif($mprduration->closed == 1)
-        {
-           $mprdurationstatus = 'Closed'; 
-        }
-
-        else{
-
-            $mprdurationstatus = 'wrong';
-        }
-
-        return $mprdurationstatus;
-    }
-
-
-    public function splityearmonth()
-    {
-        $year_month = Mprduration::where('closed', 0)->value('year_month');
-
-        $ym = explode("-", $year_month);
-
-        return $ym;
-    }
-
-    public function createdate(){
-
-        $mprdurationstatus = $this->mprdurationcheck();
-
-         if($mprdurationstatus == 'Opened'){
-
-            $date = Mprduration::where('closed', 0)->value('year_month');
-        }
-
-        else{
-
-              $date = Carbon::now();
-
-
-        }
-       
-
-        return $date;
-    }
-
-
-
 
 }

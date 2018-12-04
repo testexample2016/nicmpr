@@ -49,5 +49,30 @@ class User extends Authenticatable
         return $this->hasMany('App\Newproject');
     }
 
+    public function inaugurations()
+    {
+        return $this->hasMany('App\Inauguration');
+    }
+
+    public function trainings()
+    {
+        return $this->hasMany('App\Training');
+    }
+
+     public function awards()
+    {
+        return $this->hasMany('App\Award');
+    }
+
+    public function initiatives()
+    {
+        return $this->hasMany('App\Initiative');
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany('App\Review');
+    }
+
 }
 

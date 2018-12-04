@@ -45,7 +45,7 @@ class EmployeeController extends Controller
         $mprdurationstatus = $this->mprdurationcheck();
 
 
-       $date = $this->createdate();
+       $date = createdate();
 
       
         return view('employee.index', compact('employee','mprdurationstatus','date'));
@@ -66,9 +66,9 @@ class EmployeeController extends Controller
     public function createProgress($id)
     {
 
-         $mprdurationstatus = $this->mprdurationcheck();
+         $mprdurationstatus = mprdurationcheck();
 
-       $date = $this->createdate();        
+       $date = createdate();        
         
 
         $project = Project::findOrFail($id);
@@ -93,9 +93,9 @@ class EmployeeController extends Controller
 
        $employee = User::findOrFail($request->emp);
 
-       $mprdurationstatus = $this->mprdurationcheck();
+       $mprdurationstatus = mprdurationcheck();
 
-       $date = $this->createdate();
+       $date = createdate();
 
       
 
@@ -123,14 +123,6 @@ class EmployeeController extends Controller
              $employee = User::findOrFail($id);
 
              $employee->statuses()->save($status);
-
-          //    $status = Status::updateOrCreate(      //In case anyone press /public/final more than one time-thats why url encapsulation needed
- 
-          //   ['user_id' => $employee->id , 'year_month' => date('Y-m')], 
-
-          //   ['submitted' => 1]
-        
-          // );
 
              if(Auth::user()->isAdmin){
 
@@ -220,23 +212,15 @@ class EmployeeController extends Controller
     {
          $employee = User::findOrFail($id);
 
-        $mprdurationstatus = $this->mprdurationcheck();
+        $mprdurationstatus = mprdurationcheck();
 
-        $date = $this->createdate();
+        $date = createdate();
       
 
          return view('employee.index', compact('employee','mprdurationstatus','date'));
     }
 
-    public function createOptional($id)
-    {
-        $employee = User::findOrFail($id);
-         
-        $date = $this->createdate();
-
-        return view('employee.optional', compact('employee','date'));
-
-    }
+    
 
 
     public function storeOptional(Request $request)
@@ -285,9 +269,9 @@ class EmployeeController extends Controller
 
       $employee = User::findOrFail($request->emp);
 
-       $mprdurationstatus = $this->mprdurationcheck();
+       $mprdurationstatus = mprdurationcheck();
 
-       $date = $this->createdate();
+       $date = createdate();
 
       
 
@@ -298,7 +282,7 @@ class EmployeeController extends Controller
 
     public function createdate(){
 
-          $mprdurationstatus = $this->mprdurationcheck();
+          $mprdurationstatus = mprdurationcheck();
 
          if($mprdurationstatus == 'Opened'){
 

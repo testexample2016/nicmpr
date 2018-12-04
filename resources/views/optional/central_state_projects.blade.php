@@ -14,7 +14,7 @@
 
 <hr/>
 
-{!! Form::open(['action' => 'EmployeeController@storeOptional']) !!}
+{!! Form::open(['action' => 'OptionalController@storeOptional']) !!}
 
 <!-- New Central Projects -->
 
