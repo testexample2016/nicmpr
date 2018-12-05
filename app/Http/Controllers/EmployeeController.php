@@ -20,6 +20,8 @@ use Carbon\Carbon;
 
 use Illuminate\Support\Facades\Auth;
 
+use Illuminate\Support\Facades\Gate;
+
 use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
@@ -42,8 +44,11 @@ class EmployeeController extends Controller
  
         $employee = Auth::user();
 
-        $mprdurationstatus = $this->mprdurationcheck();
+        // dd($employee->name);
 
+        $mprdurationstatus = mprdurationcheck();
+
+        // dd($mprdurationstatus);
 
        $date = createdate();
 
@@ -64,16 +69,26 @@ class EmployeeController extends Controller
     }
 
     public function createProgress($id)
-    {
-
-         $mprdurationstatus = mprdurationcheck();
-
-       $date = createdate();        
-        
-
+    { 
         $project = Project::findOrFail($id);
 
+        if (Gate::allows('update-progress', $project)) {
+
+        $mprdurationstatus = mprdurationcheck();
+
+        $date = createdate();        
+        
+
+        // $project = Project::findOrFail($id);
+
         return view('employee.create', compact('project','date'));
+    
+     }
+
+      else {
+
+        return back();
+      }   
 
 
     }
@@ -185,29 +200,6 @@ class EmployeeController extends Controller
 
     }
 
-    public function mprdurationcheck()
-    {
-         $mprduration = Mprduration::where('closed','=' ,0)->first();
-
-        if($mprduration == null)
-
-        {
-            $mprdurationstatus = 'NotGenerated';
-        }
-
-        elseif($mprduration->closed == 0)
-        {
-           $mprdurationstatus = 'Opened'; 
-        }
-
-        else{
-
-            $mprdurationstatus = 'wrong';
-        }
-
-        return $mprdurationstatus;
-    }
-
     public function adminindex($id)
     {
          $employee = User::findOrFail($id);
@@ -223,82 +215,7 @@ class EmployeeController extends Controller
     
 
 
-    public function storeOptional(Request $request)
-    {
-
-        //code duplication remove from here
-
-
-     if ($request->has('schemename_central') && $request->has('highlight_central'))
-
-       {
     
-
-     $newproject_central = Newproject::updateOrCreate(
-
-      ['user_id' => $request->emp, 'year_month' => Mprduration::where('closed', 0)->value('year_month'),  'central_state' => 0      ],
-
-       ['schemename' => $request->schemename_central, 'highlight' => $request->highlight_central
-
-     
-       ]
-
-
-     );
-
- }
-
-  if ($request->has('schemename_state') && $request->has('highlight_state'))
-
-       {
-    
-
-     $newproject_state = Newproject::updateOrCreate(
-
-      ['user_id' => $request->emp, 'year_month' => Mprduration::where('closed', 0)->value('year_month'),  'central_state' => 1      ],
-
-       ['schemename' => $request->schemename_state, 'highlight' => $request->highlight_state
-
-     
-       ]
-
-
-     );
-
- }
-
-      $employee = User::findOrFail($request->emp);
-
-       $mprdurationstatus = mprdurationcheck();
-
-       $date = createdate();
-
-      
-
-         return view('employee.index', compact('employee','mprdurationstatus','date'));
-
-    }
-
-
-    public function createdate(){
-
-          $mprdurationstatus = mprdurationcheck();
-
-         if($mprdurationstatus == 'Opened'){
-
-            $date = Mprduration::where('closed', 0)->value('year_month');
-        }
-
-        else{
-
-              $date = Carbon::now();
-
-
-        }
-       
-
-        return $date;
-    }
 
 
     /**
