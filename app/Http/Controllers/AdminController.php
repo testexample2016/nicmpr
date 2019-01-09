@@ -12,6 +12,10 @@ use App\Http\Requests\UserUpdateRequest;
 
 use Illuminate\Support\Facades\Gate;
 
+use Illuminate\Support\Facades\Mail;
+
+use App\Mail\UserPassword;
+
 
 
 class AdminController extends Controller
@@ -76,6 +80,8 @@ class AdminController extends Controller
 
 
     	 User::create($request->all());
+
+         Mail::to($request->user())->send(new UserPassword());
 
     	 return redirect('admin');
   
