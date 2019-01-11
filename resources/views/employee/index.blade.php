@@ -69,7 +69,7 @@
         <th>Previous Month</th>
         <th>Reporting Month</th>
         <th>Cumulative Since Inspection</th>
-        <th>Actions</th>
+        
       </tr>
     </thead>
 
@@ -132,15 +132,7 @@ NILL
 @endif
 </td>
 
-@if($counter==0)
-    
-<td rowspan="{{$project->noOfParam}}">
 
- Edit
-
- @endif
-
-</td>
 
 </tr>
 

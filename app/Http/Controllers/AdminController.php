@@ -29,11 +29,11 @@ class AdminController extends Controller
     public function getDashboard()
     {
 
-        $users = User::all();
+        $employees = User::all();
 
         $mprdurationstatus = mprdurationcheck();
 
-        return view('admin.dashboard', compact('users','mprdurationstatus'));
+        return view('admin.dashboard', compact('employees','mprdurationstatus'));
     }
 
 
