@@ -70,9 +70,9 @@ Close MPR for (month and year): <input type="month" name="close_year_month">
         <td>{{ $mprduration->year_month->year }}-{{ $mprduration->year_month->format('F') }}</td>
         <td>
           @if($mprduration->closed)
-          Closed
+         <font color="red"> Closed </font>
           @else
-          Open
+          <font color="green"> Open </font>
           @endif
         </td>
       </tr>
