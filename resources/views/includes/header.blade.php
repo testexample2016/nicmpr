@@ -11,6 +11,7 @@
     <div class="navbar-header">
       <a class="navbar-brand" href="{{ action('MprdurationController@index') }}">MPR Open/Close</a>
     </div>
+
 @endif
 
 @unless(Auth::user()->isAdmin)
