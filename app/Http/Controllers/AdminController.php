@@ -79,11 +79,16 @@ class AdminController extends Controller
     public function store(UserCreateRequest $request){
 
 
+
+
     	 $user = User::create($request->all());
+
+          // dd($user);
+
 
          $token = app('auth.password.broker')->createToken($user);
 
-         Mail::to($request->user())->send(new UserPassword($token));
+         Mail::to($user)->queue(new UserPassword($token));
 
     	 return redirect('admin');
   
