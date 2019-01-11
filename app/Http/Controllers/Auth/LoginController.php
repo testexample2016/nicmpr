@@ -27,7 +27,8 @@ class LoginController extends Controller
      *
      * @var string
      */
-        protected function redirectTo()
+        
+    protected function redirectTo()
     
     {
 
