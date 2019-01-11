@@ -81,7 +81,7 @@ class AdminController extends Controller
 
     	 User::create($request->all());
 
-         Mail::to($request->user())->send(new UserPassword());
+         Mail::to($request->user())->queue(new UserPassword());
 
     	 return redirect('admin');
   
