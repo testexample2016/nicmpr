@@ -37,8 +37,10 @@ class OptionalController extends Controller
 
         //code duplication remove from here
 
+     // dd($request->filled('schemename_state'));
 
-     if ($request->has('schemename_central') && $request->has('highlight_central'))
+
+     if ($request->filled('schemename_central') && $request->filled('highlight_central'))
 
        {
     
@@ -57,7 +59,7 @@ class OptionalController extends Controller
 
  }
 
-  if ($request->has('schemename_state') && $request->has('highlight_state'))
+  if ($request->filled('schemename_state') && $request->filled('highlight_state'))
 
        {
     
@@ -74,6 +76,8 @@ class OptionalController extends Controller
 
      );
 
+      }
+
     $employee = User::findOrFail($request->emp); //remove this duplicate code redirect to another page
 
        $mprdurationstatus = mprdurationcheck();
@@ -85,7 +89,7 @@ class OptionalController extends Controller
          return view('employee.index', compact('employee','mprdurationstatus','date'));
 
 
- }
+
 
      
 
@@ -101,37 +105,37 @@ class OptionalController extends Controller
 
     }
 
-     public function storeInauguration(Request $request)
-    {
-      if ($request->has('date_of_inauguration') && $request->has('inaugurated_by') && $request->has('description')){
+    //  public function storeInauguration(Request $request)
+    // {
+    //   if ($request->has('date_of_inauguration') && $request->has('inaugurated_by') && $request->has('description')){
 
-      	// dd($request->emp);
+    //   	// dd($request->emp);
 
-      	 $inauguration = Inauguration::updateOrCreate(
+    //   	 $inauguration = Inauguration::updateOrCreate(
 
-      ['user_id' => $request->emp, 'year_month' => Mprduration::where('closed', 0)->value('year_month')],
+    //   ['user_id' => $request->emp, 'year_month' => Mprduration::where('closed', 0)->value('year_month')],
 
-       ['date_of_inauguration' => $request->date_of_inauguration, 'inaugurated_by' => $request->inaugurated_by,'description' => $request->description
+    //    ['date_of_inauguration' => $request->date_of_inauguration, 'inaugurated_by' => $request->inaugurated_by,'description' => $request->description
 
-       ]
-
-
-     );
+    //    ]
 
 
-      }
+    //  );
 
-      	$employee = User::findOrFail($request->emp); //remove this duplicate code redirect to another page
 
-       $mprdurationstatus = mprdurationcheck();
+    //   }
 
-       $date = createdate();
+    //   	$employee = User::findOrFail($request->emp); //remove this duplicate code redirect to another page
+
+    //    $mprdurationstatus = mprdurationcheck();
+
+    //    $date = createdate();
 
       
 
-         return view('employee.index', compact('employee','mprdurationstatus','date'));
+    //      return view('employee.index', compact('employee','mprdurationstatus','date'));
 
-    }
+    // }
 
 
 
