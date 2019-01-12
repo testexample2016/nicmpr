@@ -10,6 +10,8 @@ use Carbon\Carbon;
 
 use App\Mprduration;
 
+use PDF;
+
 class GenerateController extends Controller
 {
       
@@ -23,6 +25,16 @@ class GenerateController extends Controller
 
     	return view('generate.preview',compact('employees','mprdurationstatus','date'));
 
+
+    }
+
+     public function downloadPDF(){
+
+      // $user = UserDetail::find($id);
+
+      $pdf = PDF::loadView('generate.generatedmpr');
+
+      return $pdf->download('GeneratedMpr.pdf');
 
     }
 }

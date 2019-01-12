@@ -69,7 +69,7 @@ Route::get('createReview/{id}', 'ReviewController@createReview')->middleware('ch
 
 Route::post('storeReview', 'ReviewController@storeReview');
 
-Route::get('final/{id}', 'EmployeeController@finalSubmit')->middleware('checkoptional');;
+Route::get('final/{id}', 'EmployeeController@finalSubmit')->middleware('checkoptional');
 
 Route::get('progress/{id}', 'EmployeeController@createProgress');
 
@@ -83,5 +83,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('generate', 'GenerateController@preview');
+Route::get('generate', 'GenerateController@preview')->middleware('isallsubmitted');
+
+Route::get('/downloadPDF','GenerateController@downloadPDF');
 

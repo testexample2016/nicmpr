@@ -115,6 +115,6 @@ $counter++
 
 </table>
 
-
+<a href="{{action('GenerateController@downloadPDF')}}" class="btn btn-info" role="button">Download Generated MPR</a>
 
 @endsection
