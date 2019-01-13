@@ -20,7 +20,7 @@ class ReviewController extends Controller
          
         $date = createdate();
 
-        return view('optional.award', compact('employee','date'));
+        return view('optional.review', compact('employee','date'));
 
     }
 
@@ -28,15 +28,15 @@ class ReviewController extends Controller
     {
 
 
-      if ($request->has('award_name') && $request->has('date_of_award') && $request->has('project_name_regcognition') && $request->has('description')){
+      if ($request->has('reviewer_name') && $request->has('date_of_review') && $request->has('designation') && $request->has('description') && $request->has('suggestion') && $request->has('target')){
 
       	// dd($request->emp);
 
-      	 $award = Award::updateOrCreate(
+      	 $award = Review::updateOrCreate(
 
       ['user_id' => $request->emp, 'year_month' => Mprduration::where('closed', 0)->value('year_month')],
 
-       ['award_name' => $request->award_name, 'date_of_award' => $request->date_of_award,'project_name_regcognition' => $request->project_name_regcognition, 'description' => $request->description
+       ['reviewer_name' => $request->reviewer_name, 'date_of_review' => $request->date_of_review,'designation' => $request->designation, 'description' => $request->description, 'suggestion' => $request->suggestion, 'target' => $request->target
 
        ]
 

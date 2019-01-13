@@ -12,7 +12,6 @@ use App\Newproject;
 
 use App\Mprduration;
 
-use App\Inauguration;
 
 // use Illuminate\Support\Facades\Gate;
 
@@ -47,7 +46,7 @@ class OptionalController extends Controller
 
      $newproject_central = Newproject::updateOrCreate(
 
-      ['user_id' => $request->emp, 'year_month' => Mprduration::where('closed', 0)->value('year_month'),  'central_state' => 0      ],
+      ['user_id' => $request->emp,'year_month' => Mprduration::where('closed', 0)->value('year_month'),  'central_state' => 0      ],
 
        ['schemename' => $request->schemename_central, 'highlight' => $request->highlight_central
 

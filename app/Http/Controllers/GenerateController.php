@@ -32,7 +32,7 @@ class GenerateController extends Controller
 
      public function downloadPDF(){
 
-      //First Part
+
 
       $employees = User::all();
 
@@ -40,17 +40,122 @@ class GenerateController extends Controller
 
       $date = createdate();
 
-      //First Part
+       $review_generate = array();
 
-      //Second Part
+      $initiative_generate = array();
 
-      
+       $award_generate = array();
 
-      //Second Part
+      $training_generate = array();
+
+      $inauguration_generate  =array();
+
+      $newproject_state_generate = array();
+
+      $newproject_central_generate =array();
+
+      $project_state_generate = array();
 
 
 
-      $pdf = PDF::loadView('generate.generatedmpr',compact('employees','mprdurationstatus','date'));
+
+
+      foreach($employees as $employee){
+
+        foreach ($employee->reviews as $review) {
+
+          if($review->year_month == $date){
+
+            $review_generate[] = $review;
+          }
+
+          
+        }
+
+        foreach ($employee->initiatives as $initiative) {
+
+          if($initiative->year_month == $date){
+
+            $initiative_generate[] = $initiative;
+          }
+        }
+
+
+            foreach ($employee->awards as $award) {
+
+          if($award->year_month == $date){
+
+            $award_generate[] = $award;
+          }
+
+      }
+
+
+        foreach ($employee->trainings as $training) {
+
+          if($training->year_month == $date){
+
+            $training_generate[] = $training;
+          }
+
+      }
+
+
+      foreach ($employee->inaugurations as $inauguration) {
+
+          if($inauguration->year_month == $date){
+
+            $inauguration_generate[] = $inauguration;
+          }
+
+      }
+
+      foreach ($employee->newprojects as $newproject) {
+
+
+          if($newproject->year_month == $date){
+
+            if($newproject->central_state){
+
+               $newproject_state_generate[] = $newproject;
+
+            }
+
+            else{
+
+               $newproject_central_generate[] = $newproject;
+
+            }
+
+           
+          }
+
+      }
+
+
+      foreach ($employee->projects as $project) {
+
+          
+
+            if($project->central_state){
+
+              $project_state_generate[] = $project;
+            }
+
+          else{
+
+            $project_central_generate[] = $project;
+          }
+
+      }
+
+
+
+}
+
+
+      $pdf = PDF::loadView('generate.generatedmpr',compact('employees','mprdurationstatus','date','review_generate','initiative_generate','award_generate','training_generate','inauguration_generate','newproject_state_generate','newproject_central_generate','project_state_generate','project_central_generate'));
+
 
       $pdf->setPaper('A4', 'portrait');
 

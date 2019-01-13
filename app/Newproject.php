@@ -15,7 +15,7 @@ class Newproject extends Model
     	'central_state'
     ];
 
-   
+   protected $dates = ['year_month'];
 
     public function user()
     {
