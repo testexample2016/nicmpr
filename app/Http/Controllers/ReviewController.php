@@ -28,7 +28,7 @@ class ReviewController extends Controller
     {
 
 
-      if ($request->has('reviewer_name') && $request->has('date_of_review') && $request->has('designation') && $request->has('description') && $request->has('suggestion') && $request->has('target')){
+      if ($request->filled('reviewer_name') && $request->filled('date_of_review') && $request->filled('designation') && $request->filled('description') && $request->filled('suggestion') && $request->filled('target')){
 
       	// dd($request->emp);
 

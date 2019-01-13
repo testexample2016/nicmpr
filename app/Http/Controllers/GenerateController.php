@@ -14,6 +14,8 @@ use App\Newproject;
 
 use PDF;
 
+use Symfony\Component\Console\Helper\ProgressBar;
+
 class GenerateController extends Controller
 {
       
@@ -32,9 +34,15 @@ class GenerateController extends Controller
 
      public function downloadPDF(){
 
+      // creates a new progress bar (50 units)
+// $progressBar = new ProgressBar('GeneratedMpr.pdf', 50);
+
+
+
 
 
       $employees = User::all();
+
 
       $mprdurationstatus = mprdurationcheck();
 
@@ -57,7 +65,7 @@ class GenerateController extends Controller
       $project_state_generate = array();
 
 
-
+    
 
 
       foreach($employees as $employee){
@@ -71,6 +79,8 @@ class GenerateController extends Controller
 
           
         }
+
+        // $progressBar->advance();
 
         foreach ($employee->initiatives as $initiative) {
 
@@ -149,15 +159,18 @@ class GenerateController extends Controller
 
       }
 
+     
+
 
 
 }
-
 
       $pdf = PDF::loadView('generate.generatedmpr',compact('employees','mprdurationstatus','date','review_generate','initiative_generate','award_generate','training_generate','inauguration_generate','newproject_state_generate','newproject_central_generate','project_state_generate','project_central_generate'));
 
 
       $pdf->setPaper('A4', 'portrait');
+
+      // $progressBar->finish();
 
       return $pdf->download('GeneratedMpr.pdf');
 

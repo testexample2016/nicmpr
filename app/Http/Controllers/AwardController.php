@@ -29,7 +29,7 @@ class AwardController extends Controller
     {
 
 
-      if ($request->has('award_name') && $request->has('date_of_award') && $request->has('project_name_regcognition') && $request->has('description')){
+      if ($request->filled('award_name') && $request->filled('date_of_award') && $request->filled('project_name_regcognition') && $request->filled('description')){
 
       	// dd($request->emp);
 

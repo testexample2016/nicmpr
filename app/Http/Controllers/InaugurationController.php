@@ -26,7 +26,7 @@ class InaugurationController extends Controller
 
      public function storeInauguration(Request $request)
     {
-      if ($request->has('date_of_inauguration') && $request->has('inaugurated_by') && $request->has('description')){
+      if ($request->filled('date_of_inauguration') && $request->filled('inaugurated_by') && $request->filled('description')){
 
       	// dd($request->emp);
 
