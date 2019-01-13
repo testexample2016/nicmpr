@@ -2,7 +2,14 @@
 
 @section('title')
 
-  Welcome! Admin
+   @if(Auth::user()->isAdmin)
+   
+    Welcome! Amdmin
+  @else 
+
+     Welcome! Employee
+
+@endif
 
 @endsection
 
@@ -18,7 +25,7 @@
 
 <!-- New Central Projects -->
 
-<h5>Major Awards received during the month:</h5>
+<h5>Reviews of State by Hon'ble Minister/Secretary/DG:</h5>
 <hr/>
 
 <table class="table table-bordered">

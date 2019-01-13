@@ -28,7 +28,7 @@ class InitiativeController extends Controller
     {
 
 
-      if ($request->has('initiative')){
+      if ($request->filled('initiative')){
 
       	// dd($request->emp);
 

@@ -66,7 +66,7 @@ $flag=true;
 
 @if($flag)
 
-<a href="{{ action('GenerateController@preview') }}" class="btn btn-info" role="button">Generate MPR</a>
+<a href="{{ action('GenerateController@preview') }}" class="btn btn-info" role="button">Generate MPR Preview</a>
 
 @endif
 
