@@ -4,7 +4,7 @@
 
   @if(Auth::user()->isAdmin)
    
-    Welcome! Amdmin
+    Welcome! Admin
   @else 
 
      Welcome! Employee
