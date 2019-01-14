@@ -26,7 +26,7 @@ class TrainingController extends Controller
 
      public function storeTraining(Request $request)
     {
-      if ($request->has('date_of_training') && $request->has('days_of_training') && $request->has('provided_by') && $request->has('attended_by') && $request->has('description')){
+      if ($request->filled('date_of_training') && $request->filled('days_of_training') && $request->filled('provided_by') && $request->filledfilled('attended_by') && $request->filled('description')){
 
       	// dd($request->emp);
 

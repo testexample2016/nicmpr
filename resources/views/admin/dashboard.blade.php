@@ -11,6 +11,12 @@
 
 @if($mprdurationstatus == 'Opened')
 
+@php
+
+$flag=true;
+
+@endphp
+
 <h2>MPR Status</h2>
 
 <table class="table table-hover">
@@ -26,21 +32,27 @@
 
      <tbody>
 
-     	@foreach ($users as $user)
-      @if(!$user->isAdmin)
+     	@foreach ($employees as $employee)
+      @if(!$employee->isAdmin && $employee->projects()->exists())
       <tr>
-        @if (Gate::forUser($user)->allows('finally-submitted')) 
+        @if (Gate::forUser($employee)->allows('finally-submitted')) 
 
           <td>
-          <a href="{{ action('AdminController@show', [$user->id]) }}"> {{ $user->name }} </a>
+          <a href="{{ action('AdminController@show', [$employee->id]) }}"> {{ $employee->name }} </a>
         </td>
-        <td>{{ $user->designation }}</td>
+        <td>{{ $employee->designation }}</td>
         <td>Submitted <span>&#10004;</span></td>
 
    @else
-       <td>{{ $user->name }}</td>
-       <td>{{ $user->designation }}</td>
+       <td>{{ $employee->name }}</td>
+       <td>{{ $employee->designation }}</td>
        <td>Not Submitted <span>&#10006;</span>  </td>
+   @php
+    
+    $flag=false;
+
+    @endphp
+
        @endif
       
       </tr>
@@ -51,6 +63,13 @@
 
 
 </table>
+
+@if($flag)
+
+<a href="{{ action('GenerateController@preview') }}" class="btn btn-info" role="button">Generate MPR Preview</a>
+
+@endif
+
 
 @endif
 

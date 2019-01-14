@@ -26,12 +26,12 @@ Route::get('/', function () {
 // Route::post('admin', 'AdminController@store' );
 
 
-Route::get('/admin/dashboard', 'AdminController@getDashboard')->middleware('auth');
+Route::get('/admin/dashboard', 'AdminController@getDashboard')->middleware('auth','admin');
 
 
-Route::resource('admin', 'AdminController')->middleware('admin');
+Route::resource('admin', 'AdminController')->middleware('auth','admin');
 
-Route::resource('project', 'ProjectController')->middleware('admin');
+Route::resource('project', 'ProjectController')->middleware('auth','admin');
 
 
 // Route::get('ajax',function(){
@@ -41,9 +41,13 @@ Route::resource('project', 'ProjectController')->middleware('admin');
 // Route::post('getmsg','ParamController@ajaxtest');
 
 
-Route::resource('param', 'ParamController')->middleware('admin');
+Route::resource('param', 'ParamController')->middleware('auth','admin');
 
-Route::resource('employee', 'EmployeeController');
+// Route::resource('employee', 'EmployeeController');
+
+Route::get('employee', 'EmployeeController@index')->middleware('auth');
+
+Route::post('employee', 'EmployeeController@store');
 
 Route::get('createOptional/{id}', 'OptionalController@createOptional')->middleware('checkoptional');
 
@@ -69,17 +73,21 @@ Route::get('createReview/{id}', 'ReviewController@createReview')->middleware('ch
 
 Route::post('storeReview', 'ReviewController@storeReview');
 
-Route::get('final/{id}', 'EmployeeController@finalSubmit')->middleware('checkoptional');;
+Route::get('final/{id}', 'EmployeeController@finalSubmit')->middleware('checkoptional');
 
-Route::get('progress/{id}', 'EmployeeController@createProgress');
+Route::get('progress/{id}', 'EmployeeController@createProgress')->middleware('auth');
 
-Route::get('adminindex/{id}', 'EmployeeController@adminindex');
+Route::get('adminindex/{id}', 'EmployeeController@adminindex')->middleware('auth','admin');
 
-Route::get('mprduration', 'MprdurationController@index');
+Route::get('mprduration', 'MprdurationController@index')->middleware('auth');;
 
 Route::post('mprduration', 'MprdurationController@store');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('generate', 'GenerateController@preview')->middleware('auth','admin','isallsubmitted');
+
+Route::get('/downloadPDF','GenerateController@downloadPDF')->middleware('auth','admin','isallsubmitted');
 

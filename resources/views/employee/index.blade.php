@@ -2,7 +2,14 @@
 
 @section('title')
 
-  Welcome! Admin
+  @if(Auth::user()->isAdmin)
+   
+    Welcome! Admin
+  @else 
+
+     Welcome! Employee
+
+@endif
 
 @endsection
 
@@ -69,7 +76,7 @@
         <th>Previous Month</th>
         <th>Reporting Month</th>
         <th>Cumulative Since Inspection</th>
-        <th>Actions</th>
+        
       </tr>
     </thead>
 
@@ -132,15 +139,7 @@ NILL
 @endif
 </td>
 
-@if($counter==0)
-    
-<td rowspan="{{$project->noOfParam}}">
 
- Edit
-
- @endif
-
-</td>
 
 </tr>
 

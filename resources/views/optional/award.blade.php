@@ -2,7 +2,14 @@
 
 @section('title')
 
-  Welcome! Admin
+ @if(Auth::user()->isAdmin)
+   
+    Welcome! Admin
+  @else 
+
+     Welcome! Employee
+
+@endif
 
 @endsection
 
