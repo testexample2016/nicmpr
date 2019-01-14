@@ -168,7 +168,7 @@ class ParamController extends Controller
          for($i=0;$i<count($parameters);$i++)
 
         {
-           $param = new Parameter();  //updatreorcreate method not applicable as only project_id no sufficient for identifying a specific column, parameter_id neded
+           $param = new Parameter();  //updatreorcreate method not applicable as only project_id no sufficient for identifying a specific column, parameter_id needed
 
            $param->project_id =  $id; 
 
