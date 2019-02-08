@@ -565,3 +565,21 @@ $counter++
 <br>
 
 @endsection
+
+@section('styling')
+
+<!-- <style type="text/css">
+    
+      table.table-bordered{
+    border:1px solid black;
+    margin-top:20px;
+  }
+table.table-bordered > thead > tr > th{
+    border:1px solid black;
+}
+table.table-bordered > tbody > tr > td{
+    border:1px solid black;
+}
+    </style> -->
+
+@endsection
