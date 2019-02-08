@@ -10,6 +10,8 @@ use App\Mprduration;
 
 use App\User;
 
+use App\Project;
+
 class MprdurationController extends Controller
 {
      
@@ -39,6 +41,19 @@ class MprdurationController extends Controller
             if($mprduration->closed == 0){
 
               return redirect('mprduration')->with('status', 'Please Close Opened Month!');
+            }
+
+          }
+
+          $employees = User::where('isAdmin','0')->get();
+
+          // dd($employees);
+
+         foreach ($employees as $employee) {
+           
+            if($employee->projects()->doesntExist()){
+
+              return redirect('mprduration')->with('status', 'Please Assign Projects to all Employees!');
             }
 
           }
