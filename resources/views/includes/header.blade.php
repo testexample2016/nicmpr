@@ -12,6 +12,10 @@
       <a class="navbar-brand" href="{{ action('MprdurationController@index') }}">MPR Open/Close</a>
     </div>
 
+    <div class="navbar-header">
+      <a class="navbar-brand" href="{{ asset('storage/admin_manual.pdf') }}">User Manual</a>
+    </div>
+
 @endif
 
 @unless(Auth::user()->isAdmin)
