@@ -75,13 +75,7 @@ table.table-bordered > tbody > tr > td{
 </td>
 
 <td rowspan="{{$project->noOfParam}}">
-  @if(Gate::allows('finally-submitted') && !Auth::user()->isAdmin)
-  {{  $project->projectname }}
-  @else
-<a href="{{ action('EmployeeController@createProgress', [$project->id]) }}">
- {{  $project->projectname }}
-</a>
-@endif
+{{  $project->projectname }}
 </td>
 
 @endif
