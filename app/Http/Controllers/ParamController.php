@@ -82,7 +82,7 @@ class ParamController extends Controller
      */
     public function store(ParameterCreateRequest $request)
     {
-                
+        
          $this->paramValueSet($request->parameters, $request->project);
 
          $project = Project::findOrFail($request->project);
@@ -164,6 +164,7 @@ class ParamController extends Controller
 
 
     private function paramValueSet($parameters, $id){
+
 
          for($i=0;$i<count($parameters);$i++)
 
