@@ -26,12 +26,12 @@ Route::get('/', function () {
 // Route::post('admin', 'AdminController@store' );
 
 
-Route::get('/admin/dashboard', 'AdminController@getDashboard')->middleware('auth','admin');
+Route::get('/admin/dashboard', 'AdminController@getDashboard')->middleware('admin','auth');
 
 
-Route::resource('admin', 'AdminController')->middleware('auth','admin');
+Route::resource('admin', 'AdminController')->middleware('admin','auth');
 
-Route::resource('project', 'ProjectController')->middleware('auth','admin');
+Route::resource('project', 'ProjectController')->middleware('admin','auth');
 
 
 // Route::get('ajax',function(){
