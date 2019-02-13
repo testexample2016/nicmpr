@@ -28,11 +28,6 @@ class EmployeeController extends Controller
 {
     
 
-    public function __construct()
-{
-    $this->middleware('auth');
-}
-
 
     /**
      * Display a listing of the resource.
@@ -45,6 +40,7 @@ class EmployeeController extends Controller
         $employee = Auth::user();
 
         // dd($employee->name);
+
 
         $mprdurationstatus = mprdurationcheck();
 
