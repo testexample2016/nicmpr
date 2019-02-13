@@ -25,9 +25,9 @@ class ParameterCreateRequest extends FormRequest
     {
         return [
 
-            'parameters.*' => 'required|max:120|min:3',
+             'project' => 'required|numeric',
 
-            'project' => 'required|numeric'
+            'parameters.*' => 'required|max:120|min:3'           
               
         ];
     }
@@ -36,6 +36,15 @@ class ParameterCreateRequest extends FormRequest
       public function messages(){
 
         $messages = []; 
+
+        // dd($this->request->get('project'));
+
+        if($this->request->get('project')=="null"){
+
+            $messages['project.numeric'] = 'Please Select a Project';
+        }
+
+        else{
 
   foreach($this->request->get('parameters') as $key => $val) { 
 
@@ -47,9 +56,13 @@ class ParameterCreateRequest extends FormRequest
 
   } 
 
-  $messages['project.required'] = 'Project required';
+   $messages['project.numeric'] = 'Project numeric required';
 
-  $messages['project.numeric'] = 'Project numeric required';
+}
+
+ $messages['project.required'] = 'Project required';
+
+
 
   return $messages;
     

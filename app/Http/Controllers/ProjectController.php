@@ -13,14 +13,7 @@ use App\Http\Requests\ProjectRequest;
 class ProjectController extends Controller
 {
      
-     public function __construct()
-{
-    $this->middleware('auth');
-}
-
-
-
-
+   
     /**
      * Display a listing of the resource.
      *
@@ -136,11 +129,11 @@ class ProjectController extends Controller
 
     private function formatUsers() {
 
-        $users = User::where('isAdmin','!=', 1 )->pluck('name', 'id'); //As this is a collection so convert it to array
+        $users = User::where('isAdmin','0')->pluck('name', 'id'); //As this is a collection so convert it to array
 
-       // $users[0] = 'Not Assisgned';
+       // $users[0] = 'Not Assisgned';//For 'Not Assigned' Create a dummy user
 
-       $users->prepend('Not Assisgned', 0);
+       // $users->prepend('Not Assisgned', 0);
 
        // ksort($users);
 
@@ -152,16 +145,18 @@ class ProjectController extends Controller
     private function projectValueSet(ProjectRequest $request, Project $project){
 
 
-        if($request->input('user')!=0)
-       {
+       //  if($request->input('user')!=0)
+       // {
 
-       $project->user_id = $request->input('user'); //not able to mass assign as parameter name is user not user_id
+       // $project->user_id = $request->input('user'); //not able to mass assign as parameter name is user not user_id
 
-       }
+       // }
 
-       else {
-        $project->user_id = null;
-       }
+       // else {
+       //  $project->user_id = null;
+       // }
+
+         $project->user_id = $request->input('user'); //not able to mass assign as parameter name is user not user_id
 
         $project->projectname = $request->input('projectname'); 
 
