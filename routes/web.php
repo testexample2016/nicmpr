@@ -91,3 +91,7 @@ Route::get('generate', 'GenerateController@preview')->middleware('auth','admin',
 
 Route::get('/downloadPDF','GenerateController@downloadPDF')->middleware('auth','admin','isallsubmitted');
 
+Route::get('dynamic', 'GenerateController@dynamic');
+
+Route::post('dynamic', 'GenerateController@searchPDF');
+

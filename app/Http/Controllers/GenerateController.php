@@ -21,18 +21,18 @@ class GenerateController extends Controller
       
       public function preview(){
 
-    	 $employees = User::with('projects','newprojects','inaugurations','trainings','awards','initiatives','reviews')->get();
+    	 $employees = User::with('projects','newprojects','inaugurations','trainings','awards','initiatives','reviews')->get(); //Eager Loading 
 
 
-    	 $mprdurationstatus = mprdurationcheck();
+      $mprdurationstatus = mprdurationcheck();
 
-    	 $date = createdate();
+      $date = createdate();
 
-        $review_generate = array();
+      $review_generate = array();
 
       $initiative_generate = array();
 
-       $award_generate = array();
+      $award_generate = array();
 
       $training_generate = array();
 
@@ -155,16 +155,68 @@ class GenerateController extends Controller
       // creates a new progress bar (50 units)
 // $progressBar = new ProgressBar('GeneratedMpr.pdf', 50);
 
+      $date = createdate();
+
+       $pdf = $this->pdfValueSet($date);
+
+       return $pdf->download('GeneratedMpr.pdf');
+
+    }
 
 
+     public function dynamic(){
+
+      return view('generate.dynamic');
+    }
+
+
+    public function searchPDF(Request $request){
+
+            // dd($request->search_year_month);
+
+    if ($request->filled('search_year_month')) {
+
+         if(Mprduration::alreadyClosed($request->input('search_year_month').'-01')->exists()) {
+
+           
+      $date = Carbon::parse($request->input('search_year_month').'-01');
+
+          // $date = $request->input('search_year_month').'-01';
+
+      // dd($date);
+
+      $pdf = $this->pdfValueSet($date);
+   
+     return $pdf->download('SearchatedMpr.pdf');
+
+       }
+
+
+       else {
+
+        return redirect('dynamic')->with('status', 'Please Select Correct Month and Search Again!');
+
+       }
+
+   }
+       else {
+
+         return redirect('dynamic')->with('status', 'Please Choose Month & Year for search!');
+       }
+
+
+    }
+
+
+    private function pdfValueSet($date){
 
 
       $employees = User::with('projects','newprojects','inaugurations','trainings','awards','initiatives','reviews')->get();
 
 
-      $mprdurationstatus = mprdurationcheck();
+      // $mprdurationstatus = mprdurationcheck();
 
-      $date = createdate();
+      // $date = createdate();
 
        $review_generate = array();
 
@@ -183,12 +235,12 @@ class GenerateController extends Controller
       $project_state_generate = array();
 
 
-    
-
 
       foreach($employees as $employee){
 
         foreach ($employee->reviews as $review) {
+
+          // dd($review->year_month);
 
           if($review->year_month == $date){
 
@@ -283,14 +335,21 @@ class GenerateController extends Controller
 
 }
 
-      $pdf = PDF::loadView('generate.generatedmpr',compact('employees','mprdurationstatus','date','review_generate','initiative_generate','award_generate','training_generate','inauguration_generate','newproject_state_generate','newproject_central_generate','project_state_generate','project_central_generate'));
+
+      $pdf = PDF::loadView('generate.generatedmpr',compact('employees','date','review_generate','initiative_generate','award_generate','training_generate','inauguration_generate','newproject_state_generate','newproject_central_generate','project_state_generate','project_central_generate'));
 
 
       $pdf->setPaper('A4', 'portrait');
 
       // $progressBar->finish();
 
-      return $pdf->download('GeneratedMpr.pdf');
+      // return $pdf->download('GeneratedMpr.pdf');
+
+      return $pdf;
+
+
 
     }
+
+
 }

@@ -24,6 +24,10 @@
     </div>
 @endunless
 
+     <div class="navbar-header">
+      <a class="navbar-brand" href="{{ action('GenerateController@dynamic') }}">Search</a>
+    </div>
+
     <div class="navbar-header">
       <a class="navbar-brand" href="{{ action('AdminController@index') }}">User</a>
     </div>
