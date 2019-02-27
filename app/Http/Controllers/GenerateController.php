@@ -150,6 +150,13 @@ class GenerateController extends Controller
 
     }
 
+
+
+     public function dynamic(){
+
+      return view('generate.dynamic');
+    }
+
      public function downloadPDF(){
 
       // creates a new progress bar (50 units)
@@ -163,11 +170,6 @@ class GenerateController extends Controller
 
     }
 
-
-     public function dynamic(){
-
-      return view('generate.dynamic');
-    }
 
 
     public function searchPDF(Request $request){
@@ -187,7 +189,7 @@ class GenerateController extends Controller
 
       $pdf = $this->pdfValueSet($date);
    
-     return $pdf->download('SearchatedMpr.pdf');
+     return $pdf->download('SearchedMpr.pdf');
 
        }
 
