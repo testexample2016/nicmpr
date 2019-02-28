@@ -77,7 +77,7 @@ class MprdurationController extends Controller
 
       $users = User::where('isAdmin', '!=', 1)->get();
 
-      if($users){
+      
 
       foreach ($users as $user) {
         
@@ -90,7 +90,7 @@ class MprdurationController extends Controller
 
       }
 
-    }
+
     
     
       $mprduration = Mprduration::where('year_month',$request->input('close_year_month').'-01')->firstOrFail();  // -01 added because it is saved in DB as Y-m-01 format due to Carbon usage
