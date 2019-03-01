@@ -25,7 +25,9 @@ class AdminController extends Controller
     public function getDashboard()
     {
 
-        $employees = User::all();
+        // $employees = User::all();
+
+        $employees = User::where('isAdmin','0')->get();
 
         $mprdurationstatus = mprdurationcheck();
 

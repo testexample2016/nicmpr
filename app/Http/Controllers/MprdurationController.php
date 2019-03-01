@@ -73,9 +73,9 @@ class MprdurationController extends Controller
 
     elseif ($request->filled('close_year_month')  && !$request->filled('open_year_month')) {
 
-      if(!Mprduration::alreadyClosed($request->input('close_year_month').'-01')->exists()) {
-
-      $users = User::where('isAdmin', '!=', 1)->get();
+      if(Mprduration::alreadyOpened($request->input('close_year_month').'-01')->exists()){
+    
+         $users = User::where('isAdmin','0')->get();
 
       
 
@@ -98,11 +98,18 @@ class MprdurationController extends Controller
       $mprduration->closed = 1;
 
       $mprduration->save();
-    }
-
+   
       return redirect('mprduration');
 
     }
+
+    else {
+
+      return redirect('mprduration')->with('status', 'Please Open the month first');
+
+    }
+
+  }
 
 
     else {

@@ -33,7 +33,7 @@ $flag=true;
      <tbody>
 
      	@foreach ($employees as $employee)
-      @if(!$employee->isAdmin && $employee->projects()->exists())
+      @if($employee->projects()->exists())
       <tr>
         @if (Gate::forUser($employee)->allows('finally-submitted')) 
 
@@ -64,7 +64,7 @@ $flag=true;
 
 </table>
 
-@if($flag)
+@if($flag && $employees->isNotEmpty())
 
 <a href="{{ action('GenerateController@preview') }}" class="btn btn-info" role="button">Generate MPR Preview</a>
 
