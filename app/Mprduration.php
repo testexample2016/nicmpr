@@ -34,4 +34,15 @@ public function scopeAlreadyClosed($query, $year_month)
       ]);
     }
 
+public function scopeAlreadyOpened($query, $year_month)
+    {
+        return $query->where([
+       
+        ['year_month','=',$year_month],
+
+        ['closed','=',0]
+
+      ]);
+    }
+
 }
