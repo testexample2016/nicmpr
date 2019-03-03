@@ -49,6 +49,10 @@ Route::get('employee', 'EmployeeController@index')->middleware('auth');
 
 Route::post('employee', 'EmployeeController@store');
 
+Route::get('/changePassword','EmployeeController@showChangePassword')->name('changePassword')->middleware('auth');
+
+Route::post('/changePassword','EmployeeController@changePassword');
+
 Route::get('createOptional/{id}', 'OptionalController@createOptional')->middleware('checkoptional');
 
 Route::post('storeOptional', 'OptionalController@storeOptional');
