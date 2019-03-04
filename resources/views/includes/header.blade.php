@@ -1,3 +1,4 @@
+@auth
 <header>
   
 <nav class="navbar navbar-default">
@@ -39,3 +40,4 @@
   </div>
 </nav>
 </header>
+@endauth

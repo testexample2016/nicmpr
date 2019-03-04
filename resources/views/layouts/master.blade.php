@@ -60,13 +60,25 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+
+                                     <a class="dropdown-item" href="{{ route('changePassword') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('changepassword-form').submit();">
+                                        {{ __('Change Password') }}
+                                    </a>
+
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
+                                   
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+
+                                     <form id="changepassword-form" action="{{ route('changePassword') }}" method="GET" style="display: none;">
                                         @csrf
                                     </form>
                                 </div>
